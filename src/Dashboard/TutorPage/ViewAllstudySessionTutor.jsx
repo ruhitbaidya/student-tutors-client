@@ -10,7 +10,10 @@ const ViewAllstudySessionTutor = () => {
 
   const handelRejected = (id)=>{
       secureApiCall.patch(`/statusChange/${id}`)
-      .then((res)=> refetch())
+      .then((res)=>  {
+        console.log(res)
+        refetch()
+      })
       .catch((err)=> console.log(err))
   }
   console.log(secureData);
