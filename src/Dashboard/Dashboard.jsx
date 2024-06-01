@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   let links = "";
   if (rulesdins?.roles === "admin") {
-    text ="Admin"
+    text = "Admin";
     links = (
       <>
         <li>
@@ -42,7 +42,7 @@ const Dashboard = () => {
     );
   }
   if (rulesdins?.roles === "tutor") {
-    text ="Tutor"
+    text = "Tutor";
     links = (
       <>
         <li>
@@ -76,7 +76,7 @@ const Dashboard = () => {
     );
   }
   if (rulesdins?.roles === "student") {
-    text ="Student"
+    text = "Student";
     links = (
       <>
         <li>
@@ -160,7 +160,7 @@ const Dashboard = () => {
               <div className="flex justify-between items-center py-[8px] px-[10px]">
                 <div>
                   <h2 className="text-[18px] font-[600] text-gray-200">
-                    <Link to="/">Ruhit Baidya</Link>
+                    <Link to="/">{user?.displayName}</Link>
                   </h2>
                 </div>
                 <div>
@@ -174,8 +174,10 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div>
-              <Outlet></Outlet>
+            <div className="bg-gray-400 h-screen">
+              <div className="p-[20px]">
+                <Outlet></Outlet>
+              </div>
             </div>
           </div>
         </div>

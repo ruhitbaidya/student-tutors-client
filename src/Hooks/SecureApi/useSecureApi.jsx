@@ -1,17 +1,21 @@
 import axios from "axios";
+import useUserContext from "../UserContext/useUserContext";
 
 const secureApiCall = axios.create({
   baseURL: "http://localhost:5000",
 });
 
 const useSecureApi = () => {
+  const {user} = useUserContext();
+  const email = user.email;
   secureApiCall.interceptors.request.use(
     function (config) {
-      const tokens = localStorage.getItem("token");
-      config.headers.authorization = tokens;
+      const tokens = JSON.parse(localStorage.getItem("token"));
+      config.headers.authorization = JSON.stringify(`berr ${email} ${tokens}`);
       return config;
     },
     function (err) {
+      console.dir(err)
       return Promise.reject(err);
     }
   );
@@ -21,6 +25,7 @@ const useSecureApi = () => {
       return response;
     },
     function (err) {
+      console.dir(err)
       return Promise.reject(err);
     }
   );

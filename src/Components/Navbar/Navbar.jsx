@@ -68,7 +68,10 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <button onClick={() => logout()}>Logout</button>
+                    <button onClick={() => {
+                      logout();
+                      window.location.reload()
+                      }}>Logout</button>
                   </li>
                 </ul>
               </div>

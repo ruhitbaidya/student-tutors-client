@@ -18,6 +18,9 @@ import ViewBookedSection from "../Dashboard/StudentPage/ViewBookedSession";
 import CreateNotes from "../Dashboard/StudentPage/CreateNotes";
 import ManagePersonalNotes from "../Dashboard/StudentPage/ManagePersonalNotes";
 import ViewAllStudyMetarial from "../Dashboard/StudentPage/ViewAllStudyMetarial";
+import AdminPageProtact from "./AdminPageProtact";
+import TutorPageProtact from "./TutorPageProtact";
+import StudentPageProtact from "./StudentPageProtact";
 
 const router = createBrowserRouter([
   {
@@ -46,54 +49,102 @@ const router = createBrowserRouter([
       </PrivateRouter>
     ),
     children: [
-        {
-            path : "viewalluseradmin",
-            element : <ViewAllUser></ViewAllUser>
-        },
-        {
-            path : "viewallstudysessionadmin",
-            element : <ViewAllStudySession></ViewAllStudySession>
-        },
-        {
-            path : "viewallmetarialadmin",
-            element : <ViewAllMetirial></ViewAllMetirial>
-        },
-        {
-            path : "createstudysessiontutor",
-            element : <CreateStudySession></CreateStudySession>
-        },
-        {
-            path : "viewallstudysessiontutor",
-            element : <ViewAllstudySessionTutor></ViewAllstudySessionTutor>
-        },
-        {
-            path : "uploadmetarialtutor",
-            element : <UploadMetarial></UploadMetarial>
-        },
-        {
-            path : "viewallmetarialtutor",
-            element : <ViewAllmeterial></ViewAllmeterial>
-        },
-        {
-            path : "viewallnotestutor",
-            element : <ViewAllNotes></ViewAllNotes>
-        },
-        {
-            path : "bookedseddionstudent",
-            element : <ViewBookedSection></ViewBookedSection>
-        },
-        {
-            path : "createnotesstudent",
-            element : <CreateNotes></CreateNotes>
-        },
-        {
-            path : "managepersonalstudent",
-            element : <ManagePersonalNotes></ManagePersonalNotes>
-        },
-        {
-            path : "viewallstudymetrialstudent",
-            element : <ViewAllStudyMetarial></ViewAllStudyMetarial>
-        }
+      {
+        path: "viewalluseradmin",
+        element: (
+          <AdminPageProtact>
+            <ViewAllUser></ViewAllUser>
+          </AdminPageProtact>
+        ),
+      },
+      {
+        path: "viewallstudysessionadmin",
+        element: (
+          <AdminPageProtact>
+            <ViewAllStudySession></ViewAllStudySession>
+          </AdminPageProtact>
+        ),
+      },
+      {
+        path: "viewallmetarialadmin",
+        element: (
+          <AdminPageProtact>
+            <ViewAllMetirial></ViewAllMetirial>
+          </AdminPageProtact>
+        ),
+      },
+      {
+        path: "createstudysessiontutor",
+        element: (
+          <TutorPageProtact>
+            <CreateStudySession></CreateStudySession>
+          </TutorPageProtact>
+        ),
+      },
+      {
+        path: "viewallstudysessiontutor",
+        element: (
+          <TutorPageProtact>
+            <ViewAllstudySessionTutor></ViewAllstudySessionTutor>
+          </TutorPageProtact>
+        ),
+      },
+      {
+        path: "uploadmetarialtutor",
+        element: (
+          <TutorPageProtact>
+            <UploadMetarial></UploadMetarial>
+          </TutorPageProtact>
+        ),
+      },
+      {
+        path: "viewallmetarialtutor",
+        element: (
+          <TutorPageProtact>
+            <ViewAllmeterial></ViewAllmeterial>
+          </TutorPageProtact>
+        ),
+      },
+      {
+        path: "viewallnotestutor",
+        element: (
+          <TutorPageProtact>
+            <ViewAllNotes></ViewAllNotes>
+          </TutorPageProtact>
+        ),
+      },
+      {
+        path: "bookedseddionstudent",
+        element: (
+          <StudentPageProtact>
+            <ViewBookedSection></ViewBookedSection>
+          </StudentPageProtact>
+        ),
+      },
+      {
+        path: "createnotesstudent",
+        element: (
+          <StudentPageProtact>
+            <CreateNotes></CreateNotes>
+          </StudentPageProtact>
+        ),
+      },
+      {
+        path: "managepersonalstudent",
+        element: (
+          <StudentPageProtact>
+            <ManagePersonalNotes></ManagePersonalNotes>
+          </StudentPageProtact>
+        ),
+      },
+      {
+        path: "viewallstudymetrialstudent",
+        element: (
+          <StudentPageProtact>
+            <ViewAllStudyMetarial></ViewAllStudyMetarial>
+          </StudentPageProtact>
+        ),
+      },
     ],
   },
   {
