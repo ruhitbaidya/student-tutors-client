@@ -1,15 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
+import useSecureApi from "../SecureApi/useSecureApi";
 
-const useQueryGetSecure = () => {
-  const secureApiCall = useQueryGetSecure();
+const useQueryGetSecure = (url) => {
+  console.log(url)
+  const secureApiCall = useSecureApi();
   const { data: secureData, refetch } = useQuery({
-    queryKey: ["dataget"],
+    queryKey: ["role", url],
     queryFn: async () => {
-      const res = await secureApiCall("/");
+      const res = await secureApiCall.get(url);
       return res;
     },
   });
-
+  console.log(secureData)
   return [secureData, refetch];
 };
 

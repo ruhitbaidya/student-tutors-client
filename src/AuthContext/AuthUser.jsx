@@ -44,6 +44,7 @@ const AuthUser = ({ children }) => {
     return signInWithPopup(auth, provider)
   }
   const logout = ()=>{
+    localStorage.removeItem("token")
     return signOut(auth)
   }
   useEffect(() => {
@@ -59,6 +60,7 @@ const AuthUser = ({ children }) => {
         .catch((err)=> console.log(err))
       }
     });
+    
     return () => {
       unsubscribe();
     };

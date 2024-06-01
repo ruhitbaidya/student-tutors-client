@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { SiSololearn } from "react-icons/si";
 import useUserContext from "../../Hooks/UserContext/useUserContext";
 const Navbar = () => {
-  const { user ,logout} = useUserContext();
+  const { user, logout } = useUserContext();
   const links = (
     <>
       <li>
@@ -47,22 +47,28 @@ const Navbar = () => {
           {user ? (
             <>
               <div className="dropdown dropdown-end">
-                <div tabIndex={0} role="button" className="btn bg-transparent border-0 m-1 hover:bg-transparent">
-                <img
-                  className="w-10 h-10 border-2 rounded-full"
-                  src="https://cdn-icons-png.flaticon.com/512/709/709699.png"
-                  alt=""
-                />
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn bg-transparent border-0 m-1 hover:bg-transparent"
+                >
+                  <img
+                    className="w-10 h-10 border-2 rounded-full"
+                    src="https://cdn-icons-png.flaticon.com/512/709/709699.png"
+                    alt=""
+                  />
                 </div>
                 <ul
                   tabIndex={0}
                   className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <button>Dashboard</button>
+                    <Link to="/dashboard">
+                      <button>Dashboard</button>
+                    </Link>
                   </li>
                   <li>
-                    <button onClick={()=> logout()}>Logout</button>
+                    <button onClick={() => logout()}>Logout</button>
                   </li>
                 </ul>
               </div>
@@ -71,11 +77,15 @@ const Navbar = () => {
             <>
               <Link to="/signin">
                 {" "}
-                <button className="border py-[8px] px-[25px] mr-[10px] rounded-lg">Login</button>{" "}
+                <button className="border py-[8px] px-[25px] mr-[10px] rounded-lg">
+                  Login
+                </button>{" "}
               </Link>
               <Link to="/register">
                 {" "}
-                <button className="border py-[8px] px-[25px] rounded-lg">SingUp</button>{" "}
+                <button className="border py-[8px] px-[25px] rounded-lg">
+                  SingUp
+                </button>{" "}
               </Link>
             </>
           )}

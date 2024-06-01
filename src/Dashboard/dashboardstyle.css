@@ -1,0 +1,9 @@
+.listDesign li{
+    padding: 5px 0;
+    margin-bottom:10px;
+    padding-left:10px;
+    border-bottom: 2px solid #1E1F3D;
+}
+.listDesign li:hover{
+    background-color: #c2b4b446;
+}
