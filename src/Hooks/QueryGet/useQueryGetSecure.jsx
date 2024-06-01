@@ -3,7 +3,7 @@ import useSecureApi from "../SecureApi/useSecureApi";
 
 const useQueryGetSecure = (url) => {
   const secureApiCall = useSecureApi();
-  const { data: secureData,isLoading, refetch,  } = useQuery({
+  const { data: secureData, refetch,  } = useQuery({
     queryKey: ["role", url],
     queryFn: async () => {
       const res = await secureApiCall.get(url);
@@ -11,7 +11,7 @@ const useQueryGetSecure = (url) => {
     },
   });
   console.log(secureData)
-  return [secureData, refetch, isLoading];
+  return [secureData, refetch];
 };
 
 export default useQueryGetSecure;

@@ -135,7 +135,7 @@ const Dashboard = () => {
       <div className="">
         <div className="rounded-lg lg:flex ">
           <div className="w-[25%]">
-            <div className="bg-[#272C4A] p-[20px] text-white hidden lg:flex">
+            <div className="bg-[#272C4A] p-[20px] text-white hidden lg:block">
               <div className="">
                 <div>
                   <div className="flex items-center justify-center gap-[12px]">

@@ -1,16 +1,18 @@
 .listDesign li{
-    padding: 5px 0;
-    margin-bottom:10px;
-    padding-left:10px;
-    border-bottom: 2px solid #1E1F3D;
+    
 }
 
 .listDesign li:hover{
     background-color: #c2b4b446;
 }
-.active{
-    background-color: #c2b4b446 !important;
-    display: block;
+
+.listDesign li a{
+    padding: 10px 0;
     margin-bottom:10px;
     padding-left:10px;
+    display: block;
+    border-bottom: 2px solid #1E1F3D;
+}
+.active{
+    background-color: #c2b4b446;
 }

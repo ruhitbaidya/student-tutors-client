@@ -30,6 +30,7 @@ const Register = () => {
                 })
                 .catch((err)=> console.log(err))
                 toast.success("Successfully Register")
+                window.location.reload();
             })
         })
         .catch((err)=> console.log(err))
