@@ -7,6 +7,8 @@ const secureApiCall = axios.create({
 const useSecureApi = () => {
   secureApiCall.interceptors.request.use(
     function (config) {
+      const tokens = localStorage.getItem("token");
+      config.headers.authorization = tokens;
       return config;
     },
     function (err) {
