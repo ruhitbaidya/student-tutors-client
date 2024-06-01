@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form"
 import useUserContext from "../../Hooks/UserContext/useUserContext";
+import { ToastContainer, toast } from 'react-toastify';
+
 const Register = () => {
     const { registerEmailpass , updateUserProfile } = useUserContext();
     const {
@@ -17,7 +19,11 @@ const Register = () => {
         registerEmailpass(email, password)
         .then((res)=> {
             console.log(res)
-            updateUserProfile()
+            updateUserProfile(name)
+            .then((res)=>{
+                console.log(res)
+                toast.success("Successfully Register")
+            })
         })
         .catch((err)=> console.log(err))
       }
@@ -25,6 +31,7 @@ const Register = () => {
   return (
     <div className="my-[50px]">
       <div className="container mx-auto">
+        <ToastContainer />
         <div className="w-[50%] mx-auto">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>

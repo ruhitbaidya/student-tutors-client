@@ -1,6 +1,10 @@
 import {
+    GithubAuthProvider,
+    GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
   updateProfile,
 } from "firebase/auth";
 import auth from "../firebase";
@@ -19,12 +23,25 @@ const AuthUser = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const updateUserProfile = (name) => {
+    setLoading(true);
     return updateProfile(auth.currentUser, {
       displayName: name
     });
   };
 
-  
+  const loginuser = (email, password)=>{
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  }
+
+  const logingoogle = ()=>{
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider)
+  }
+  const githublogin = ()=>{
+    const provider = new GithubAuthProvider();
+    return signInWithPopup(auth, provider)
+  }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (person) => {
       setUser(person);
@@ -41,9 +58,9 @@ const AuthUser = ({ children }) => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [publicApicall]);
 
-  const info = { registerEmailpass, updateUserProfile, user, loading };
+  const info = {registerEmailpass, updateUserProfile, user, loading, loginuser, logingoogle, githublogin};
   return <userContext.Provider value={info}>{children}</userContext.Provider>;
 };
 
