@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form"
 import useUserContext from "../../Hooks/UserContext/useUserContext";
 import { ToastContainer, toast } from 'react-toastify';
+import UserSetRole from "../../Hooks/UsersetRouter/UserSetRouter";
+import { Link } from "react-router-dom";
 
 const Register = () => {
     const { registerEmailpass , updateUserProfile } = useUserContext();
@@ -22,6 +24,9 @@ const Register = () => {
             updateUserProfile(name)
             .then((res)=>{
                 console.log(res)
+                UserSetRole({name, email, role})
+                .then((res)=> console.log(res))
+                .catch((err)=> console.log(err))
                 toast.success("Successfully Register")
             })
         })
@@ -94,6 +99,7 @@ const Register = () => {
               <button className="w-full py-[10px] border rounded-lg">Register</button>
             </div>
           </form>
+          <p>If You Hanve Already An Acount <Link to='/signin'>Login</Link></p>
         </div>
       </div>
     </div>

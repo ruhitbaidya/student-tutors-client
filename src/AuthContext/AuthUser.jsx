@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
   updateProfile,
 } from "firebase/auth";
 import auth from "../firebase";
@@ -42,6 +43,9 @@ const AuthUser = ({ children }) => {
     const provider = new GithubAuthProvider();
     return signInWithPopup(auth, provider)
   }
+  const logout = ()=>{
+    return signOut(auth)
+  }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (person) => {
       setUser(person);
@@ -60,7 +64,7 @@ const AuthUser = ({ children }) => {
     };
   }, [publicApicall]);
 
-  const info = {registerEmailpass, updateUserProfile, user, loading, loginuser, logingoogle, githublogin};
+  const info = {registerEmailpass, updateUserProfile, user, loading, loginuser, logingoogle, githublogin, logout};
   return <userContext.Provider value={info}>{children}</userContext.Provider>;
 };
 
