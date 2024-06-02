@@ -10,7 +10,6 @@ const useQueryGetSecure = (url) => {
       return res;
     },
   });
-  console.log(secureData)
   return [secureData, refetch];
 };
 

@@ -40,7 +40,7 @@ const ViewAllstudySessionTutor = () => {
                     <th>{item.tutorName}</th>
                     <th>{item.regEndDate}</th>
                     <th>{
-                      item.status === "approve" ? <span className="text-green-700">Approve</span> : <button  onClick={()=> handelRejected(item._id)} className="text-red-700">Rejected</button>
+                      item.status === "approve" ? <span className="text-green-700">Approve</span> :<><span className="text-red-700 mr-[10px]">Reject</span><button  onClick={()=> handelRejected(item._id)} >Re Send Request</button> </>  
                       }</th>
                   </tr>
                   })}

@@ -21,6 +21,7 @@ import ViewAllStudyMetarial from "../Dashboard/StudentPage/ViewAllStudyMetarial"
 import AdminPageProtact from "./AdminPageProtact";
 import TutorPageProtact from "./TutorPageProtact";
 import StudentPageProtact from "./StudentPageProtact";
+import MetarialuploadPage from "../Dashboard/TutorPage/MetarialuploadPage";
 
 const router = createBrowserRouter([
   {
@@ -110,6 +111,14 @@ const router = createBrowserRouter([
         element: (
           <TutorPageProtact>
             <ViewAllNotes></ViewAllNotes>
+          </TutorPageProtact>
+        ),
+      },
+      {
+        path: "materialUpload",
+        element: (
+          <TutorPageProtact>
+            <MetarialuploadPage></MetarialuploadPage>
           </TutorPageProtact>
         ),
       },
