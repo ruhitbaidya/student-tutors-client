@@ -115,11 +115,9 @@ const CreateStudySession = () => {
                 />
               </label>
             </div>
-            <div>
+            <div className="mt-[20px]">
             <label className="form-control w-full">
-                <div className="label">
-                  <span className="label-text">Class Duration</span>
-                </div>
+               
                  <input
                   type="submit"
                   value="Submit"

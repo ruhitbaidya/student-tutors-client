@@ -1,7 +1,9 @@
 import { useState } from "react";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
 import { ToastContainer, toast } from 'react-toastify';
+import UpdateSession from "./UpdateSession";
 const StatusPageSession = ({ users, refetch }) => {
+  const [upid, setupid] = useState("")
   const [price, setprice] = useState(0)
   const secureApiCall = useSecureApi();
   let ids = "";
@@ -60,11 +62,20 @@ const StatusPageSession = ({ users, refetch }) => {
   };
 
 
-  const updateSession = ()=>{
-
+  const updateSession = (id)=>{
+    setupid(id)
+    document.getElementById("my_modal_2").showModal();
   }
   const deleteSession = (id)=>{
-    console.log(id)
+    secureApiCall
+      .delete(`/deltesession/${id}`)
+      .then((res) => {
+        if(res.data.deletedCount > 0){
+          toast.success("Delete successfully")
+          refetch();
+        }
+      })
+      .catch((err) => console.log(err));
   }
   return (
     <div>
@@ -115,7 +126,7 @@ const StatusPageSession = ({ users, refetch }) => {
                     }
                     {
                       item?.status === "approve" && <th>
-                        <button onClick={updateSession} className="btn bg-orange-400">Update</button>
+                        <button onClick={()=> updateSession(item._id)} className="btn bg-orange-400">Update</button>
                         <button onClick={()=> deleteSession(item._id)} className="btn bg-red-400 ml-[5px]">Delete</button>
                       </th>
                     }
@@ -128,6 +139,7 @@ const StatusPageSession = ({ users, refetch }) => {
           </tbody>
         </table>
       </div>
+      {/* this modal user for price  */}
       <div>
         <dialog id="my_modal_1" className="modal">
           <div className="modal-box">
@@ -146,7 +158,7 @@ const StatusPageSession = ({ users, refetch }) => {
             </div>
             <div className="modal-action">
               <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
+               
                 <button
                   onClick={handelSesstionPrice}
                   className="btn btn-success text-white"
@@ -162,6 +174,34 @@ const StatusPageSession = ({ users, refetch }) => {
           </div>
         </dialog>
       </div>
+
+       {/* this modal user for update session */}
+
+       <div>
+        <dialog id="my_modal_2" className="modal">
+          <div className="modal-box w-11/12 max-w-5xl">
+            <h3 className="font-bold text-lg mb-[20px]">
+              Update Session Data
+            </h3>
+            <div>
+              <UpdateSession valueId={upid} />
+            </div>
+            <div className="modal-action">
+              <form method="dialog">
+                <button className="btn ml-[20px] bg-red-500 text-white">
+                  Close
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+      </div>
+
+
+
+
+
+
     </div>
   );
 };
