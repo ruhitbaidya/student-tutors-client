@@ -1,0 +1,9 @@
+.addBgImage{
+    background-image: url("../../../assets/teaching.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.addcolors{
+    background-color: #535151b0;
+}

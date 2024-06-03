@@ -126,15 +126,15 @@ const Dashboard = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu p-4 w-[50%]  min-h-full bg-base-200 text-base-content">
+          <ul className="menu p-4 w-[50%]  min-h-[100vh] bg-base-200 text-base-content">
             {/* Sidebar content here */}
             {links}
           </ul>
         </div>
       </div>
       <div className="">
-        <div className="rounded-lg lg:flex ">
-          <div className="w-[25%]">
+        <div className="rounded-lg  grid grid-cols-7">
+          <div className="col-span-2">
             <div className="bg-[#272C4A] p-[20px] text-white hidden lg:block">
               <div className="">
                 <div>
@@ -146,7 +146,7 @@ const Dashboard = () => {
                   </div>
 
                   <hr className="mb-[20px]" />
-                  <div className="h-screen">
+                  <div className="min-h-[100vh]">
                     <div>
                       <ul className="listDesign text-[#A6AFBB]">{links}</ul>
                     </div>
@@ -155,7 +155,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="w-[100%] lg:w-[75%]">
+          <div className="col-span-5">
             <div className="bg-[#1D1E3C]">
               <div className="flex justify-between items-center py-[8px] px-[10px]">
                 <div>
@@ -174,7 +174,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-gray-400 h-screen">
+            <div className="bg-gray-400 min-h-[100vh]">
               <div className="p-[20px]">
                 <Outlet></Outlet>
               </div>

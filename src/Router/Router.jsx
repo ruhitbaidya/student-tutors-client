@@ -5,7 +5,6 @@ import Home from "../Pages/Home/Home";
 import Register from "../Pages/Register/Register";
 import Login from "../Pages/Login/Login";
 import Dashboard from "../Dashboard/Dashboard";
-import PrivateRouter from "./PrivateRouter";
 import ViewAllUser from "../Dashboard/AdminPage/ViewAllUser";
 import ViewAllStudySession from "../Dashboard/AdminPage/ViewAllStudySession";
 import ViewAllMetirial from "../Dashboard/AdminPage/ViewAllMetirial";
@@ -24,7 +23,7 @@ import StudentPageProtact from "./StudentPageProtact";
 import MetarialuploadPage from "../Dashboard/TutorPage/MetarialuploadPage";
 import axios from "axios";
 import UpdateMetrial from "../Dashboard/TutorPage/UpdateMetrial";
-
+import PrivateRouter from "./PrivateRouter";
 
 const router = createBrowserRouter([
   {
@@ -126,13 +125,12 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path : "tutorUpdatemetrial/:id",
-        loader : ({params})=> {
-          console.log(params.id)
-          return axios.get(`http://localhost:5000/getForUpdate/${params.id}`)
-        }
-        ,
-        element : <UpdateMetrial></UpdateMetrial>
+        path: "tutorUpdatemetrial/:id",
+        loader: ({ params }) => {
+          console.log(params.id);
+          return axios.get(`http://localhost:5000/getForUpdate/${params.id}`);
+        },
+        element: <UpdateMetrial></UpdateMetrial>,
       },
       {
         path: "bookedseddionstudent",

@@ -1,8 +1,11 @@
+import Banner from "./Banner/Banner"
 
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className="container mx-auto">
+        <Banner></Banner>
+    </div>
   )
 }
 

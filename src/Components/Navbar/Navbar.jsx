@@ -1,17 +1,10 @@
 import { FiMenu } from "react-icons/fi";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { SiSololearn } from "react-icons/si";
 import useUserContext from "../../Hooks/UserContext/useUserContext";
 const Navbar = () => {
   const { user, logout } = useUserContext();
-  const links = (
-    <>
-      <li>
-        {" "}
-        <NavLink to="/">Home</NavLink>{" "}
-      </li>
-    </>
-  );
+  
   return (
     <div className="border">
       <div className="navbar bg-base-100">
@@ -28,7 +21,7 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              {links}
+           
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost text-xl">
@@ -41,7 +34,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{links}</ul>
+          <ul className="menu menu-horizontal px-1"></ul>
         </div>
         <div className="navbar-end">
           {user ? (
