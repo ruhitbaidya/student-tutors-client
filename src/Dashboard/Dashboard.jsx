@@ -133,8 +133,8 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="">
-        <div className="rounded-lg  grid grid-cols-7">
-          <div className="col-span-2">
+        <div className="rounded-lg  grid grid-cols-12">
+          <div className="col-span-3">
             <div className="bg-[#272C4A] p-[20px] text-white hidden lg:block">
               <div className="">
                 <div>
@@ -155,7 +155,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-5">
+          <div className="col-span-9">
             <div className="bg-[#1D1E3C]">
               <div className="flex justify-between items-center py-[8px] px-[10px]">
                 <div>

@@ -5,7 +5,7 @@ import useUserContext from "../../Hooks/UserContext/useUserContext";
 
 const ViewAllstudySessionTutor = () => {
   const { user } = useUserContext();
-  const [secureData, refetch] = useQueryGetSecure(`sessionfind/${user.email}`);
+  const [secureData, refetch] = useQueryGetSecure(`/sessionfind/${user.email}`);
   const secureApiCall = useSecureApi();
 
   const handelRejected = (id)=>{
