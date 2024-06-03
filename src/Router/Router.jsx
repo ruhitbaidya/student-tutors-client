@@ -22,6 +22,9 @@ import AdminPageProtact from "./AdminPageProtact";
 import TutorPageProtact from "./TutorPageProtact";
 import StudentPageProtact from "./StudentPageProtact";
 import MetarialuploadPage from "../Dashboard/TutorPage/MetarialuploadPage";
+import axios from "axios";
+import UpdateMetrial from "../Dashboard/TutorPage/UpdateMetrial";
+
 
 const router = createBrowserRouter([
   {
@@ -121,6 +124,15 @@ const router = createBrowserRouter([
             <MetarialuploadPage></MetarialuploadPage>
           </TutorPageProtact>
         ),
+      },
+      {
+        path : "tutorUpdatemetrial/:id",
+        loader : ({params})=> {
+          console.log(params.id)
+          return axios.get(`http://localhost:5000/getForUpdate/${params.id}`)
+        }
+        ,
+        element : <UpdateMetrial></UpdateMetrial>
       },
       {
         path: "bookedseddionstudent",

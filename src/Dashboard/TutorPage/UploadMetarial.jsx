@@ -16,6 +16,7 @@ const UploadMetarial = () => {
             <p>Email : {item?.tutorEmail}</p>
             <span className="mb-[10px]"><span className="font-[600]">Register Last Date :</span> {item?.regEndDate}</span> <br />
             <span><span className="font-[600]">Class Start Date :</span> {item?.classStateDate}</span>
+            <p>Status : <span className="text-green-400 capitalize">{item.status}</span></p>
             <Link to="/dashboard/materialUpload" state={item._id}>
               <button className="btn w-full mt-[15px]"> upload material</button>
             </Link>
