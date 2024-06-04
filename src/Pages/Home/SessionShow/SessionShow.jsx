@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import usePullicApi from "../../../Hooks/publicApi/usePullicApi";
-import Curenttimes from "../../../Hooks/Curenttimes";
 import { Link } from "react-router-dom";
+import DateMatch from "../../../Hooks/DateMatch";
 
 const SessionShow = () => {
-  const dates = Curenttimes();
+
   const [docCount, setDocCount] = useState(0);
   const [sesstion, setSessions] = useState([]);
   const publicApicall = usePullicApi();
@@ -19,11 +19,7 @@ const SessionShow = () => {
       .catch((err) => console.log(err));
   }, [publicApicall]);
   console.log();
-  const matchDate = (endDate) => {
-    if (new Date(dates) >= new Date(endDate)) {
-      return true;
-    }
-  };
+
   return (
     <div className="my-[70px]">
       <div className="w-[70%] mx-auto text-center mb-[50px]">
@@ -49,12 +45,12 @@ const SessionShow = () => {
                 </div>
                 <div className="mt-[20px]">
                   <button
-                    disabled={matchDate(item.regEndDate)}
+                    disabled={DateMatch(item.regStartDate, item.regEndDate)}
                     className="py-[8px] px-[20px] border border-gray-400 bg-gray-50 mr-[5px]"
                   >
-                    {matchDate(item.regEndDate) ? "Closed" : "Ongoing"}
+                    {DateMatch(item.regStartDate, item.regEndDate ) ? "Closed" : "Ongoing"}
                   </button>
-                  <Link to="/details">
+                  <Link to={`/details/${item._id}`}>
                     <button className="py-[8px] px-[20px] border border-gray-400 bg-gray-50">
                       Read More
                     </button>
@@ -66,9 +62,11 @@ const SessionShow = () => {
       </div>
       <div className="mt-[20px] text-center">
         {docCount > 6 ? (
+          <Link to="/allSession">
           <button className="border py-[15px] px-[40px]">
             See All Session
           </button>
+          </Link>
         ) : (
           ""
         )}

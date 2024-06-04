@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import SucessesPay from "../PymentsSuccess";
 import Root from "../Pages/Root/Root";
 import Home from "../Pages/Home/Home";
 import Register from "../Pages/Register/Register";
@@ -24,6 +23,9 @@ import MetarialuploadPage from "../Dashboard/TutorPage/MetarialuploadPage";
 import axios from "axios";
 import UpdateMetrial from "../Dashboard/TutorPage/UpdateMetrial";
 import PrivateRouter from "./PrivateRouter";
+import SessionDetails from "../Pages/SessionDetails/SessionDetails";
+import Allsession from "../Pages/Home/SessionShow/Allsession";
+import YourPayment from "../Pages/Payments/YourPayment";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,24 @@ const router = createBrowserRouter([
         path: "/signin",
         element: <Login></Login>,
       },
+      {
+        path: "/details/:id",
+        element: (
+          <PrivateRouter>
+            <SessionDetails></SessionDetails>
+          </PrivateRouter>
+        ),
+      },
+      {
+        path : "/allSession",
+        element : <Allsession></Allsession>
+      },
+      {
+        path : "/payment",
+        element : <PrivateRouter>
+          <YourPayment></YourPayment>
+        </PrivateRouter>
+      }
     ],
   },
   {
@@ -165,10 +185,6 @@ const router = createBrowserRouter([
         ),
       },
     ],
-  },
-  {
-    path: "/success",
-    element: <SucessesPay></SucessesPay>,
   },
 ]);
 export default router;

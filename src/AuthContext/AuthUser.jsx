@@ -16,7 +16,7 @@ export const userContext = createContext(null);
 
 const AuthUser = ({ children }) => {
     const publicApicall = usePullicApi();
-
+  const [price, setPrice] = useState(0)
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const registerEmailpass = (email, password) => {
@@ -66,7 +66,7 @@ const AuthUser = ({ children }) => {
     };
   }, [publicApicall]);
 
-  const info = {registerEmailpass, updateUserProfile, user, loading, loginuser, logingoogle, githublogin, logout};
+  const info = {registerEmailpass, updateUserProfile, user, loading, loginuser, logingoogle, githublogin, logout,price, setPrice};
   return <userContext.Provider value={info}>{children}</userContext.Provider>;
 };
 

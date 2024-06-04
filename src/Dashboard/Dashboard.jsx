@@ -6,7 +6,7 @@ import useQueryGetSecure from "../Hooks/QueryGet/useQueryGetSecure";
 import useUserContext from "../Hooks/UserContext/useUserContext";
 
 const Dashboard = () => {
-  const { user } = useUserContext();
+  const { user, logout } = useUserContext();
   const [secureData] = useQueryGetSecure(`checkRole/${user.email}`);
   // console.log(secureData)
   const rulesdins = secureData?.data;
@@ -121,6 +121,7 @@ const Dashboard = () => {
           </label>
         </div>
         <div className="drawer-side">
+          
           <label
             htmlFor="my-drawer"
             aria-label="close sidebar"
@@ -138,13 +139,14 @@ const Dashboard = () => {
             <div className="bg-[#272C4A] p-[20px] text-white hidden lg:block">
               <div className="">
                 <div>
-                  <div className="flex items-center justify-center gap-[12px]">
-                    <SiSololearn className="text-[30px] mb-[10px]" />
-                    <h2 className="text-center text-[25px] font-[700] mb-[10px] ">
-                      <span className="text-[#C0485E]">{text}</span> Dashboard
-                    </h2>
-                  </div>
-
+                  <Link to="/">
+                    <div className="flex items-center justify-center gap-[12px]">
+                      <SiSololearn className="text-[30px] mb-[10px]" />
+                      <h2 className="text-center text-[25px] font-[700] mb-[10px] ">
+                        <span className="text-[#C0485E]">{text}</span> Dashboard
+                      </h2>
+                    </div>
+                  </Link>
                   <hr className="mb-[20px]" />
                   <div className="min-h-[100vh]">
                     <div>
@@ -165,11 +167,36 @@ const Dashboard = () => {
                 </div>
                 <div>
                   <div>
-                    <img
-                      className="w-12 h-12 rounded-full border-[3px]"
-                      src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                      alt=""
-                    />
+                    <>
+                      <div className="dropdown dropdown-end">
+                        <div
+                          tabIndex={0}
+                          role="button"
+                          className="btn bg-transparent border-0 m-1 hover:bg-transparent"
+                        >
+                          <img
+                            className="w-12 h-12 rounded-full border-[3px]"
+                            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                            alt=""
+                          />
+                        </div>
+                        <ul
+                          tabIndex={0}
+                          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                        >
+                          <li>
+                            <button
+                              onClick={() => {
+                                logout();
+                                window.location.reload();
+                              }}
+                            >
+                              Logout
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </>
                   </div>
                 </div>
               </div>
