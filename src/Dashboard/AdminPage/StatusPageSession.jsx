@@ -1,86 +1,76 @@
 import { useState } from "react";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
-import { ToastContainer, toast } from 'react-toastify';
 import UpdateSession from "./UpdateSession";
 const StatusPageSession = ({ users, refetch }) => {
-  const [upid, setupid] = useState("")
-  const [price, setprice] = useState(0)
+  const [upid, setupid] = useState("");
+  const [message, setMessage] = useState("")
   const secureApiCall = useSecureApi();
   let ids = "";
   const findRooleandchange = (tex, id) => {
+    setMessage("")
     console.log(tex, id);
     ids = id;
     if (tex === "approve") {
       document.getElementById("my_modal_1").showModal();
     } else if (tex === "rejected") {
       secureApiCall
-      .patch(`/rejectlist/${id}`)
-      .then((res) => {
-        if(res.data.modifiedCount > 0){
-          toast.success("Add To Reject list")
-          refetch();
-          setprice(0);
-        }
-      })
-      .catch((err) => console.log(err));
-    }else{
+        .patch(`/rejectlist/${id}`)
+        .then((res) => {
+          if (res.data.modifiedCount > 0) {
+            refetch();
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
       secureApiCall
-      .patch(`/pedndinglist/${id}`)
-      .then((res) => {
-        if(res.data.modifiedCount > 0){
-          toast.success("Add To panding list")
-          refetch();
-          setprice(0);
-        }
-      })
-      .catch((err) => console.log(err));
+        .patch(`/pedndinglist/${id}`)
+        .then((res) => {
+          if (res.data.modifiedCount > 0) {
+            refetch();
+          }
+        })
+        .catch((err) => console.log(err));
     }
-    console.log(price)
+
     // secureApiCall
     //   .patch(`/sessionstatuschange/${id}`, { tex })
     //   .then((res) => console.log(res))
     //   .catch((err) => console.log(err));
   };
 
-  const handelSesstionPrice = () => {
-    setprice(0);
-    console.log(ids)
-    let prices = document.getElementById("pricetext").value;
-    setprice(prices)
-    console.log(price);
-        secureApiCall
+  const handelSesstionPrice = (e) => {
+    e.preventDefault();
+    const price = e.target.pricetext.value;
+    secureApiCall
       .patch(`/sessionstatuschange/${ids}`, { price })
       .then((res) => {
-        if(res.data.modifiedCount > 0){
-          toast.success("update successfully")
+        if (res.data.modifiedCount > 0) {
           refetch();
-          setprice(0);
+          setMessage("Successfully Update")
+          e.target.reset();
         }
-        console.log(res)
+        console.log(res);
       })
       .catch((err) => console.log(err));
   };
 
-
-  const updateSession = (id)=>{
-    setupid(id)
+  const updateSession = (id) => {
+    setupid(id);
     document.getElementById("my_modal_2").showModal();
-  }
-  const deleteSession = (id)=>{
+  };
+  const deleteSession = (id) => {
     secureApiCall
       .delete(`/deltesession/${id}`)
       .then((res) => {
-        if(res.data.deletedCount > 0){
-          toast.success("Delete successfully")
+        if (res.data.deletedCount > 0) {
           refetch();
         }
       })
       .catch((err) => console.log(err));
-  }
+  };
   return (
     <div>
       <div>
-        <ToastContainer />
         <h2 className="text-right">Total : {users?.length}</h2>
       </div>
       <div className="overflow-x-auto">
@@ -106,33 +96,45 @@ const StatusPageSession = ({ users, refetch }) => {
                     <th>{item.sessionTitle}</th>
                     <th>{item.regStartDate}</th>
                     <th>{item.classStateDate}</th>
-                    {
-                      item?.status === "pending" && <th>
-                      <select
-                        onChange={(e) =>
-                          findRooleandchange(e.target.value, item._id)
-                        }
-                        defaultValue={item.status}
-                        className="select select-bordered w-full max-w-xs"
-                      >
-                        <option value="" selected disabled>
-                          --select--
-                        </option>
-                        <option value="pending">Pending</option>
-                        <option value="approve">Approve</option>
-                        <option value="rejected">Rejected</option>
-                      </select>
-                    </th>
-                    }
-                    {
-                      item?.status === "approve" && <th>
-                        <button onClick={()=> updateSession(item._id)} className="btn bg-orange-400">Update</button>
-                        <button onClick={()=> deleteSession(item._id)} className="btn bg-red-400 ml-[5px]">Delete</button>
+                    {item?.status === "pending" && (
+                      <th>
+                        <select
+                          onChange={(e) =>
+                            findRooleandchange(e.target.value, item._id)
+                          }
+                          defaultValue={item.status}
+                          className="select select-bordered w-full max-w-xs"
+                        >
+                          <option value="" selected disabled>
+                            --select--
+                          </option>
+                          <option value="pending">Pending</option>
+                          <option value="approve">Approve</option>
+                          <option value="rejected">Rejected</option>
+                        </select>
                       </th>
-                    }
-                    {
-                      item?.status === "rejected" && <span className="py-[5px] px-[12px] mt-[10px] block text-center text-white bg-red-400">Rejected</span>
-                    }
+                    )}
+                    {item?.status === "approve" && (
+                      <th>
+                        <button
+                          onClick={() => updateSession(item._id)}
+                          className="w-full py-[8px] px-[15px] bg-orange-400 text-white"
+                        >
+                          Update
+                        </button>
+                        <button
+                          onClick={() => deleteSession(item._id)}
+                          className="w-full py-[8px] px-[15px] bg-red-400 mt-[5px] text-white"
+                        >
+                          Delete
+                        </button>
+                      </th>
+                    )}
+                    {item?.status === "rejected" && (
+                      <span className="py-[5px] px-[12px] mt-[10px] block text-center text-white bg-red-400">
+                        Rejected
+                      </span>
+                    )}
                   </tr>
                 );
               })}
@@ -148,24 +150,23 @@ const StatusPageSession = ({ users, refetch }) => {
             </h3>
             <div>
               <p>Set This Session Amount</p>
-              <input
-              defaultValue={price}
-                id="pricetext"
-                type="number"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-              />
-            </div>
-            <div className="modal-action">
-              <form method="dialog">
-               
+              <p className="text-[18px] font-[600] text-green-400">{message}</p>
+              <form onSubmit={handelSesstionPrice}>
+                <input
+                  name="pricetext"
+                  type="number"
+                  placeholder="Type here"
+                  className="input input-bordered w-full"
+                />
                 <button
-                  onClick={handelSesstionPrice}
-                  className="btn btn-success text-white"
-                  type="button"
+                  className="btn btn-success text-white w-full mt-[20px]"
                 >
                   Save
                 </button>
+              </form>
+            </div>
+            <div className="modal-action">
+              <form method="dialog">
                 <button className="btn ml-[20px] bg-red-500 text-white">
                   Close
                 </button>
@@ -175,14 +176,12 @@ const StatusPageSession = ({ users, refetch }) => {
         </dialog>
       </div>
 
-       {/* this modal user for update session */}
+      {/* this modal user for update session */}
 
-       <div>
+      <div>
         <dialog id="my_modal_2" className="modal">
           <div className="modal-box w-11/12 max-w-5xl">
-            <h3 className="font-bold text-lg mb-[20px]">
-              Update Session Data
-            </h3>
+            <h3 className="font-bold text-lg mb-[20px]">Update Session Data</h3>
             <div>
               <UpdateSession valueId={upid} />
             </div>
@@ -196,12 +195,6 @@ const StatusPageSession = ({ users, refetch }) => {
           </div>
         </dialog>
       </div>
-
-
-
-
-
-
     </div>
   );
 };

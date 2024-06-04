@@ -15,7 +15,6 @@ const useSecureApi = () => {
       return config;
     },
     function (err) {
-      console.dir(err)
       return Promise.reject(err);
     }
   );
@@ -25,7 +24,6 @@ const useSecureApi = () => {
       return response;
     },
     function (err) {
-      console.dir(err)
       return Promise.reject(err);
     }
   );
