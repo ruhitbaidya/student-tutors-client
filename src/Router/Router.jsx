@@ -26,6 +26,7 @@ import PrivateRouter from "./PrivateRouter";
 import SessionDetails from "../Pages/SessionDetails/SessionDetails";
 import Allsession from "../Pages/Home/SessionShow/Allsession";
 import YourPayment from "../Pages/Payments/YourPayment";
+import StSessionDetails from "../Dashboard/StudentPage/StSessionDetails";
 
 const router = createBrowserRouter([
   {
@@ -184,6 +185,11 @@ const router = createBrowserRouter([
           </StudentPageProtact>
         ),
       },
+      {
+        path : "sessionDetailSt/:id",
+        loader : ({params})=> axios.get(`http://localhost:5000/getDetails/${params.id}`),
+        element : <StSessionDetails></StSessionDetails>
+      }
     ],
   },
 ]);
