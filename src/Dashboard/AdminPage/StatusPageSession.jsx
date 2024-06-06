@@ -3,24 +3,17 @@ import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
 import UpdateSession from "./UpdateSession";
 const StatusPageSession = ({ users, refetch }) => {
   const [upid, setupid] = useState("");
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
   const secureApiCall = useSecureApi();
   let ids = "";
   const findRooleandchange = (tex, id) => {
-    setMessage("")
+    setMessage("");
     console.log(tex, id);
     ids = id;
     if (tex === "approve") {
       document.getElementById("my_modal_1").showModal();
     } else if (tex === "rejected") {
-      secureApiCall
-        .patch(`/rejectlist/${id}`)
-        .then((res) => {
-          if (res.data.modifiedCount > 0) {
-            refetch();
-          }
-        })
-        .catch((err) => console.log(err));
+      document.getElementById("my_modal_6").showModal();
     } else {
       secureApiCall
         .patch(`/pedndinglist/${id}`)
@@ -38,6 +31,30 @@ const StatusPageSession = ({ users, refetch }) => {
     //   .catch((err) => console.log(err));
   };
 
+  const handelFeedBack = (e) => {
+    e.preventDefault();
+    const rejectResone = e.target.rejectResone.value;
+    const rejectFeedback = e.target.rejectFeedback.value;
+    const datas = { rejectResone, rejectFeedback, rejectSession: ids };
+    console.log(datas);
+    secureApiCall
+      .post("/rejectSessionFeedback", datas)
+      .then((res) => {
+        console.log(res)
+        if (res.data) {
+          secureApiCall
+            .patch(`/rejectlist/${ids}`)
+            .then((res) => {
+              if (res.data.modifiedCount > 0) {
+                refetch();
+              }
+            })
+            .catch((err) => console.log(err));
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   const handelSesstionPrice = (e) => {
     e.preventDefault();
     const price = e.target.pricetext.value;
@@ -46,7 +63,7 @@ const StatusPageSession = ({ users, refetch }) => {
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           refetch();
-          setMessage("Successfully Update")
+          setMessage("Successfully Update");
           e.target.reset();
         }
         console.log(res);
@@ -158,9 +175,7 @@ const StatusPageSession = ({ users, refetch }) => {
                   placeholder="Type here"
                   className="input input-bordered w-full"
                 />
-                <button
-                  className="btn btn-success text-white w-full mt-[20px]"
-                >
+                <button className="btn btn-success text-white w-full mt-[20px]">
                   Save
                 </button>
               </form>
@@ -190,6 +205,59 @@ const StatusPageSession = ({ users, refetch }) => {
                 <button className="btn ml-[20px] bg-red-500 text-white">
                   Close
                 </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+      </div>
+
+      <div>
+        {/* Open the modal using document.getElementById('ID').showModal() method */}
+        <dialog id="my_modal_6" className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Send Reject Feedback</h3>
+
+            <div>
+              <form onSubmit={handelFeedBack}>
+                <div>
+                  <label className="form-control w-full ">
+                    <div className="label">
+                      <span className="label-text">Rejection reason</span>
+                    </div>
+                    <input
+                      name="rejectResone"
+                      type="text"
+                      placeholder="Type here"
+                      className="input input-bordered w-full "
+                    />
+                  </label>
+                </div>
+                <div>
+                  <label className="form-control w-full">
+                    <div className="label">
+                      <span className="label-text">Feedback</span>
+                    </div>
+                    <textarea
+                      className="border-gray-300 border p-[10px] rounded-lg w-full"
+                      name="rejectFeedback"
+                      id=""
+                      cols="30"
+                      rows="4"
+                    ></textarea>
+                  </label>
+                </div>
+                <div className="mt-[20px]">
+                  <button className="w-full py-[8px] border border-gray-400 rounded-lg">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div className="modal-action">
+              <form method="dialog">
+                {/* if there is a button in form, it will close the modal */}
+                <button className="btn">Close</button>
               </form>
             </div>
           </div>

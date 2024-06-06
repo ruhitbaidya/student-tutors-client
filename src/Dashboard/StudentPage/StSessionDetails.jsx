@@ -1,48 +1,46 @@
 import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { Rating } from 'react-simple-star-rating';
-import { ToastContainer, toast } from 'react-toastify';
-
+import { ToastContainer, toast } from "react-toastify";
 import useUserContext from "../../Hooks/UserContext/useUserContext";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
+import ReactStars from "react-rating-stars-component";
 
 const StSessionDetails = () => {
-  const {user} = useUserContext();
+  const { user } = useUserContext();
   const secureApiCall = useSecureApi();
-  const [rating, setRating] = useState(0)
+  const [rating, setRating] = useState(0);
   const [details, setDetails] = useState("");
   const datas = useLoaderData();
   useEffect(() => {
     setDetails(datas?.data);
   }, [datas]);
   console.log(datas.data);
- 
 
-  // Catch Rating value
-  const handleRating = (rate) => {
-    setRating(rate)
-  }
-
-  const handelReview = (e)=>{
+  const handelReview = (e) => {
     e.preventDefault();
     const reviewSessionId = datas.data._id;
     const ratings = rating;
     const review = e.target.review.value;
     const studentEmail = user.email;
-    const revies = {reviewSessionId, ratings, review, studentEmail}
-    console.log({reviewSessionId, ratings, review, studentEmail})
-    secureApiCall.post("/reviewall", revies)
-    .then((res)=>{
-      if(res.data.acknowledged){
-        toast.success("Your Review Add Successfully")
-        setRating(0)
-        e.target.reset()
-      }
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
+    const revies = { reviewSessionId, ratings, review, studentEmail };
+    console.log({ reviewSessionId, ratings, review, studentEmail });
+    secureApiCall
+      .post("/reviewall", revies)
+      .then((res) => {
+        if (res.data.acknowledged) {
+          toast.success("Your Review Add Successfully");
+          setRating(0);
+          e.target.reset();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const ratingChanged = (newRating) => {
+    setRating(newRating);
+  };
 
   return (
     <div>
@@ -61,23 +59,19 @@ const StSessionDetails = () => {
           </div>
           <p className="mt-[30px]">Class Duration : {details.classDuration}</p>
         </div>
-        <div className="mt-[50px]">
+        <div className="mt-[100px]">
           <div className="">
-            <div className="vertical-rating">
-              {/* set initial value */}
-              <Rating
-                onClick={handleRating}
-                initialValue={rating}
-                transition
-                showTooltip
-                tooltipArray={[
-                  "Terrible",
-                  "Bad",
-                  "Average",
-                  "Great",
-                  "Prefect",
-                ]}
+            <div>
+              <h2 className="text-center text-3xl font-[600]">Review This Course</h2>
+            </div>
+            <div className="vertical-rating flex justify-center items-center mb-[30px]">
+              <ReactStars
+                count={5}
+                onChange={ratingChanged}
+                size={50}
+                activeColor="#ffd700"
               />
+              {/* set initial value */}
             </div>
           </div>
           <div>

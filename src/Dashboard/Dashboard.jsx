@@ -69,9 +69,6 @@ const Dashboard = () => {
             View all materials{" "}
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/dashboard/viewallnotestutor"> View all notes </NavLink>
-        </li>
       </>
     );
   }
@@ -176,7 +173,7 @@ const Dashboard = () => {
                         >
                           <img
                             className="w-12 h-12 rounded-full border-[3px]"
-                            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                            src={user?.photoURL}
                             alt=""
                           />
                         </div>

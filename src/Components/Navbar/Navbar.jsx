@@ -1,4 +1,4 @@
-import { FiMenu } from "react-icons/fi";
+
 import { Link } from "react-router-dom";
 import { SiSololearn } from "react-icons/si";
 import useUserContext from "../../Hooks/UserContext/useUserContext";
@@ -9,21 +9,7 @@ const Navbar = () => {
     <div className="border">
       <div className="navbar bg-base-100">
         <div className="navbar-start">
-          <div className="dropdown">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost lg:hidden text-[25px]"
-            >
-              <FiMenu />
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-           
-            </ul>
-          </div>
+          
           <Link to="/" className="btn btn-ghost text-xl">
             {" "}
             <SiSololearn className="text-[25px]" />{" "}
@@ -47,7 +33,7 @@ const Navbar = () => {
                 >
                   <img
                     className="w-10 h-10 border-2 rounded-full"
-                    src="https://cdn-icons-png.flaticon.com/512/709/709699.png"
+                    src={user?.photoURL}
                     alt=""
                   />
                 </div>

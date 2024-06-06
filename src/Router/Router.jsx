@@ -11,7 +11,6 @@ import CreateStudySession from "../Dashboard/TutorPage/CreateStudySession";
 import ViewAllstudySessionTutor from "../Dashboard/TutorPage/ViewAllstudySessionTutor";
 import UploadMetarial from "../Dashboard/TutorPage/UploadMetarial";
 import ViewAllmeterial from "../Dashboard/TutorPage/ViewAllmeterial";
-import ViewAllNotes from "../Dashboard/TutorPage/ViewAllNotes";
 import ViewBookedSection from "../Dashboard/StudentPage/ViewBookedSession";
 import CreateNotes from "../Dashboard/StudentPage/CreateNotes";
 import ManagePersonalNotes from "../Dashboard/StudentPage/ManagePersonalNotes";
@@ -27,11 +26,14 @@ import SessionDetails from "../Pages/SessionDetails/SessionDetails";
 import Allsession from "../Pages/Home/SessionShow/Allsession";
 import YourPayment from "../Pages/Payments/YourPayment";
 import StSessionDetails from "../Dashboard/StudentPage/StSessionDetails";
+import ShowAllMetrial from "../Dashboard/StudentPage/ShowAllMetrial";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement : <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -54,15 +56,17 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path : "/allSession",
-        element : <Allsession></Allsession>
+        path: "/allSession",
+        element: <Allsession></Allsession>,
       },
       {
-        path : "/payment",
-        element : <PrivateRouter>
-          <YourPayment></YourPayment>
-        </PrivateRouter>
-      }
+        path: "/payment",
+        element: (
+          <PrivateRouter>
+            <YourPayment></YourPayment>
+          </PrivateRouter>
+        ),
+      },
     ],
   },
   {
@@ -130,14 +134,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "viewallnotestutor",
-        element: (
-          <TutorPageProtact>
-            <ViewAllNotes></ViewAllNotes>
-          </TutorPageProtact>
-        ),
-      },
-      {
         path: "materialUpload",
         element: (
           <TutorPageProtact>
@@ -186,10 +182,19 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path : "sessionDetailSt/:id",
-        loader : ({params})=> axios.get(`http://localhost:5000/getDetails/${params.id}`),
-        element : <StSessionDetails></StSessionDetails>
-      }
+        path: "metrialall/:id",
+        element: (
+          <StudentPageProtact>
+            <ShowAllMetrial></ShowAllMetrial>
+          </StudentPageProtact>
+        ),
+      },
+      {
+        path: "sessionDetailSt/:id",
+        loader: ({ params }) =>
+          axios.get(`http://localhost:5000/getDetails/${params.id}`),
+        element: <StSessionDetails></StSessionDetails>,
+      },
     ],
   },
 ]);

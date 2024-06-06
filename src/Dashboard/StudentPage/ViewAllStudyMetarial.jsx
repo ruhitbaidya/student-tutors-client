@@ -15,7 +15,7 @@ const ViewAllStudyMetarial = () => {
             <p>{item.sessionDescription}</p>
             <p>{item.classDuration}</p>
             <p>{item.tutorName}</p>
-            <Link to={`/dashboard/sessionDetailSt/${item._id}`}>
+            <Link to={`/dashboard/metrialall/${item._id}`}>
             <button className="btn w-full">View Mertials</button>
             </Link>
         </div>
