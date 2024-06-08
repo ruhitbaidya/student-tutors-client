@@ -88,8 +88,8 @@ const SessionDetails = () => {
             className="py-[8px] px-[20px] border border-gray-400 bg-gray-50 mr-[5px]"
           >
             {DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate)
-              ? "Closed"
-              : "Book Now"}
+              ? "Book Now"
+              : "Close"}
           </button>
         </div>
       </div>

@@ -3,15 +3,17 @@ import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
 import UpdateSession from "./UpdateSession";
 import { ToastContainer, toast } from 'react-toastify';
 const StatusPageSession = ({ users, refetch }) => {
+  const [handelbtn, sethandelBtn] = useState(false);
+  const [ids, setIds] = useState("")
   const [formRject, setformReject] = useState(false)
   const [upid, setupid] = useState("");
   const [message, setMessage] = useState("");
   const secureApiCall = useSecureApi();
-  let ids = "";
   const findRooleandchange = (tex, id) => {
     setMessage("");
     console.log(tex, id);
-    ids = id;
+    sethandelBtn(false)
+    setIds(id)
     if (tex === "approve") {
       document.getElementById("my_modal_1").showModal();
     } else if (tex === "rejected") {
@@ -40,12 +42,10 @@ const StatusPageSession = ({ users, refetch }) => {
     const rejectResone = e.target.rejectResone.value;
     const rejectFeedback = e.target.rejectFeedback.value;
     const datas = { rejectResone, rejectFeedback, rejectSession: ids };
-    console.log(datas);
     secureApiCall
       .post("/rejectSessionFeedback", datas)
       .then((res) => {
         e.target.reset();
-        
         console.log(res);
         if (res.data) {
           secureApiCall
@@ -65,12 +65,14 @@ const StatusPageSession = ({ users, refetch }) => {
   const handelSesstionPrice = (e) => {
     e.preventDefault();
     const price = e.target.pricetext.value;
+    console.log(ids, price)
     secureApiCall
       .patch(`/sessionstatuschange/${ids}`, { price })
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           refetch();
           setMessage("Successfully Update");
+          sethandelBtn(true)
           e.target.reset();
         }
         console.log(res);
@@ -179,12 +181,13 @@ const StatusPageSession = ({ users, refetch }) => {
               <p className="text-[18px] font-[600] text-green-400">{message}</p>
               <form onSubmit={handelSesstionPrice}>
                 <input
+                required
                   name="pricetext"
                   type="number"
                   placeholder="Type here"
                   className="input input-bordered w-full"
                 />
-                <button className="btn btn-success text-white w-full mt-[20px]">
+                <button disabled={handelbtn} className="btn btn-success text-white w-full mt-[20px]">
                   Save
                 </button>
               </form>
