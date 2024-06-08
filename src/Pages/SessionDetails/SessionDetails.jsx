@@ -5,9 +5,10 @@ import DateMatch from "../../Hooks/DateMatch";
 import Swal from "sweetalert2";
 import useUserContext from "../../Hooks/UserContext/useUserContext";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
-
+import ReactStars from "react-rating-stars-component";
 const SessionDetails = () => {
-  const [rolecheck, setRolecheck] = useState(true)
+  const [stReiew, setStReview] = useState([]);
+  const [rolecheck, setRolecheck] = useState(true);
   const secureApiCall = useSecureApi();
   const { user } = useUserContext();
   const navigate = useNavigate();
@@ -15,12 +16,18 @@ const SessionDetails = () => {
   const id = useLocation();
   const ids = id.pathname.split("/")[2];
   const [secureData] = useQueryGetSecure(`/sessionDetails/${ids}`);
+
   useEffect(() => {
-    secureApiCall.get(`checkRole/${user?.email}`)
-    .then((res)=> setRolecheck(res.data.roles))
-    .catch((err)=> console.log(err))
+    secureApiCall
+      .get(`checkRole/${user?.email}`)
+      .then((res) => setRolecheck(res.data.roles))
+      .catch((err) => console.log(err));
     setDetailsData(secureData?.data);
-  }, [secureData, secureApiCall, user]);
+    secureApiCall
+      .get(`/getallreview/${detailsdata?._id}`)
+      .then((res) => setStReview(res?.data))
+      .catch((err) => console.log(err));
+  }, [secureData, secureApiCall, user, detailsdata]);
   console.log(detailsdata);
   const handelpayment = (price, id, email) => {
     if (price > 0) {
@@ -48,11 +55,10 @@ const SessionDetails = () => {
           localStorage.removeItem("cId");
         })
         .catch((err) => console.log(err));
-
     }
   };
-  if(rolecheck === "student"){
-    setRolecheck(false)
+  if (rolecheck === "student") {
+    setRolecheck(false);
   }
   return (
     <div className="my-[50px]">
@@ -84,13 +90,38 @@ const SessionDetails = () => {
                 detailsdata?.tutorEmail
               )
             }
-            disabled={rolecheck}
+            disabled={
+              rolecheck ||
+              DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate)
+                ? true
+                : false
+            }
             className="py-[8px] px-[20px] border border-gray-400 bg-gray-50 mr-[5px]"
           >
             {DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate)
-              ? "Book Now"
-              : "Close"}
+              ? "Close"
+              : "Book Now"}
           </button>
+        </div>
+      </div>
+      {/* all review session */}
+      
+      <div className="w-[70%] mx-auto">
+      <h2 className="text-3xl font-[700] mt-[30px]">All Review</h2>
+        <div>
+          <div>
+            {stReiew &&
+              stReiew?.map((item) => {
+                return (
+                  <div key={item._id} className="border mt-[20px] p-[20px]">
+                    <p>{item.review}</p>
+                    <p>
+                      <ReactStars value={item.ratings} count="5" size={20} activeColor="#ffd700" edit={false} />
+                    </p>
+                  </div>
+                );
+              })}
+          </div>
         </div>
       </div>
     </div>

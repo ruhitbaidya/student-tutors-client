@@ -69,6 +69,7 @@ const StSessionDetails = () => {
                 count={5}
                 onChange={ratingChanged}
                 size={50}
+                isHalf={true}
                 activeColor="#ffd700"
               />
               {/* set initial value */}

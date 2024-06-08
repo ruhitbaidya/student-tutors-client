@@ -46,8 +46,8 @@ const Allsession = () => {
                   className="py-[8px] px-[20px] border border-gray-400 bg-gray-50 mr-[5px]"
                 >
                   {DateMatch(item?.regStartDate, item?.regEndDate)
-              ? "On Going"
-              : "Close"}
+              ? "Close"
+              : "Ongoing"}
                 </button>
                 <Link to={`/details/${item._id}`}>
                   <button className="py-[8px] px-[20px] border border-gray-400 bg-gray-50">
