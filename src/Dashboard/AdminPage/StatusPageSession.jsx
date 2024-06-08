@@ -1,7 +1,9 @@
 import { useState } from "react";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
 import UpdateSession from "./UpdateSession";
+import { ToastContainer, toast } from 'react-toastify';
 const StatusPageSession = ({ users, refetch }) => {
+  const [formRject, setformReject] = useState(false)
   const [upid, setupid] = useState("");
   const [message, setMessage] = useState("");
   const secureApiCall = useSecureApi();
@@ -13,12 +15,14 @@ const StatusPageSession = ({ users, refetch }) => {
     if (tex === "approve") {
       document.getElementById("my_modal_1").showModal();
     } else if (tex === "rejected") {
+      setformReject(false)
       document.getElementById("my_modal_6").showModal();
     } else {
       secureApiCall
         .patch(`/pedndinglist/${id}`)
         .then((res) => {
           if (res.data.modifiedCount > 0) {
+            toast.success("Send Feedback")
             refetch();
           }
         })
@@ -40,12 +44,15 @@ const StatusPageSession = ({ users, refetch }) => {
     secureApiCall
       .post("/rejectSessionFeedback", datas)
       .then((res) => {
-        console.log(res)
+        e.target.reset();
+        
+        console.log(res);
         if (res.data) {
           secureApiCall
             .patch(`/rejectlist/${ids}`)
             .then((res) => {
               if (res.data.modifiedCount > 0) {
+                setformReject(true)
                 refetch();
               }
             })
@@ -85,9 +92,11 @@ const StatusPageSession = ({ users, refetch }) => {
       })
       .catch((err) => console.log(err));
   };
+  console.log(formRject)
   return (
     <div>
       <div>
+        <ToastContainer />
         <h2 className="text-right">Total : {users?.length}</h2>
       </div>
       <div className="overflow-x-auto">
@@ -225,6 +234,7 @@ const StatusPageSession = ({ users, refetch }) => {
                       <span className="label-text">Rejection reason</span>
                     </div>
                     <input
+                      required
                       name="rejectResone"
                       type="text"
                       placeholder="Type here"
@@ -238,6 +248,7 @@ const StatusPageSession = ({ users, refetch }) => {
                       <span className="label-text">Feedback</span>
                     </div>
                     <textarea
+                      required
                       className="border-gray-300 border p-[10px] rounded-lg w-full"
                       name="rejectFeedback"
                       id=""
@@ -247,7 +258,7 @@ const StatusPageSession = ({ users, refetch }) => {
                   </label>
                 </div>
                 <div className="mt-[20px]">
-                  <button className="w-full py-[8px] border border-gray-400 rounded-lg">
+                  <button disabled={formRject}  className={` w-full py-[8px] border border-gray-400 rounded-lg`}>
                     Submit
                   </button>
                 </div>

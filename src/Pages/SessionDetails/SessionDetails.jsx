@@ -7,6 +7,7 @@ import useUserContext from "../../Hooks/UserContext/useUserContext";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
 
 const SessionDetails = () => {
+  const [rolecheck, setRolecheck] = useState(true)
   const secureApiCall = useSecureApi();
   const { user } = useUserContext();
   const navigate = useNavigate();
@@ -15,8 +16,11 @@ const SessionDetails = () => {
   const ids = id.pathname.split("/")[2];
   const [secureData] = useQueryGetSecure(`/sessionDetails/${ids}`);
   useEffect(() => {
+    secureApiCall.get(`checkRole/${user?.email}`)
+    .then((res)=> setRolecheck(res.data.roles))
+    .catch((err)=> console.log(err))
     setDetailsData(secureData?.data);
-  }, [secureData]);
+  }, [secureData, secureApiCall, user]);
   console.log(detailsdata);
   const handelpayment = (price, id, email) => {
     if (price > 0) {
@@ -47,6 +51,9 @@ const SessionDetails = () => {
 
     }
   };
+  if(rolecheck === "student"){
+    setRolecheck(false)
+  }
   return (
     <div className="my-[50px]">
       <div>
@@ -77,10 +84,7 @@ const SessionDetails = () => {
                 detailsdata?.tutorEmail
               )
             }
-            disabled={DateMatch(
-              detailsdata?.regStartDate,
-              detailsdata?.regEndDate
-            )}
+            disabled={rolecheck}
             className="py-[8px] px-[20px] border border-gray-400 bg-gray-50 mr-[5px]"
           >
             {DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate)

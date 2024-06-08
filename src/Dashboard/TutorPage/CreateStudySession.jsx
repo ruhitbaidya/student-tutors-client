@@ -1,5 +1,6 @@
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
 import useUserContext from "../../Hooks/UserContext/useUserContext";
+import { ToastContainer, toast } from 'react-toastify';
 import { useForm } from "react-hook-form"
 const CreateStudySession = () => {
   const { user } = useUserContext();
@@ -7,6 +8,7 @@ const CreateStudySession = () => {
   const {
     register,
     handleSubmit,
+    reset
   } = useForm();
   const onSubmit = (data) =>{ 
     console.log(data)
@@ -19,13 +21,20 @@ const CreateStudySession = () => {
     }
 
     secureApiCall.post("/createSession", session)
-    .then((res)=> console.log(res))
+    .then((res)=> {
+      if(res.data.insertedId){
+        toast.success("successfully create Session");
+        reset();
+      }      
+      console.log(res)
+    })
     .catch((err)=> console.log(err))
     console.log(session)
   }
   return (
     <div>
       <div>
+        <ToastContainer />
         <div>
           <h2 className="text-center text-[25px] font-[700]">Create Session</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
