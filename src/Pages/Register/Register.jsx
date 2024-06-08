@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import useUserContext from "../../Hooks/UserContext/useUserContext";
 import { ToastContainer, toast } from 'react-toastify';
 import UserSetRole from "../../Hooks/UsersetRouter/UserSetRouter";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
@@ -12,9 +12,10 @@ const Register = () => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
       } = useForm()
-    
+    const navigate = useNavigate();
       const onSubmit = (data) => {
         setBtnLoading(true)
         const name = data.name;
@@ -39,12 +40,14 @@ const Register = () => {
                     .then((res)=> {
                       if(res.data.insertedId){
                         toast.success("User Role Set")
+                        reset();
                       }
                     })
                     .catch((err)=>  console.log(err))
                     toast.success("Successfully Register")
-                    setBtnLoading(false)
-                    // window.location.reload();
+                    setBtnLoading(false);
+                    navigate("/")
+                    window.location.reload();
                 })
             })
             .catch((err)=> toast.error(err.message))
@@ -57,7 +60,8 @@ const Register = () => {
     <div className="my-[50px]">
       <div className="container mx-auto">
         <ToastContainer />
-        <div className="w-[50%] mx-auto">
+        <div className="w-[50%] mx-auto shadow-lg p-[30px] rounded-lg">
+          <h2 className="text-center text-3xl font-[700]">Register</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label className="form-control w-full">
@@ -133,7 +137,7 @@ const Register = () => {
               <button className="w-full py-[10px] border rounded-lg">  {btnLoading ? <span className="loading loading-spinner loading-xs"></span> : 'Register' } </button>
             </div>
           </form>
-          <p>If You Hanve Already An Acount <Link to='/signin'>Login</Link></p>
+          <p className="mt-[20px]">If You Hanve Already An Acount <Link to='/signin'>Login</Link></p>
         </div>
       </div>
     </div>

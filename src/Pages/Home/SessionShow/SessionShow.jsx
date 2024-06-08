@@ -38,7 +38,7 @@ const SessionShow = () => {
         {sesstion &&
           sesstion?.map((item) => {
             return (
-              <div key={item._id} className="p-[15px] bg-gray-200 rounded-lg">
+              <div key={item._id} className="p-[15px] bg-gray-200 rounded-lg flex-col justify-between items-baseline">
                 <div className="space-y-3">
                   <h2 className="text-2xl font-[600]">{item.sessionTitle}</h2>
                   <p>{item.sessionDescription}</p>

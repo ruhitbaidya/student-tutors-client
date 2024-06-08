@@ -4,16 +4,19 @@ import { FaGithub } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import useUserContext from "../../Hooks/UserContext/useUserContext";
 import UserSetRole from "../../Hooks/UsersetRouter/UserSetRouter";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   const { loginuser, logingoogle, githublogin } = useUserContext();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
   const onSubmit = (data) => {
     const email = data.email;
     const password = data.password;
     loginuser(email, password)
       .then((res) => {
+        reset();
         toast.success("successfully Login");
+        navigate("/");
         console.log(res);
       })
       .catch((err) => {
@@ -35,7 +38,9 @@ const Login = () => {
               .then((res) => console.log(res))
               .catch((err) => console.log(err));
           }, 1000);
+
           toast.success("successfully Login");
+          navigate("/");
         }
       })
       .catch((err) => {
@@ -58,6 +63,7 @@ const Login = () => {
               .catch((err) => console.log(err));
           }, 1000);
           toast.success("successfully Login");
+          navigate("/");
         }
 
         console.log(res);
@@ -70,7 +76,7 @@ const Login = () => {
     <div className="my-[50px]">
       <div className="container mx-auto">
         <ToastContainer />
-        <div className="w-[50%] mx-auto">
+        <div className="w-[50%] mx-auto shadow-lg p-[30px] rounded-lg">
           <h2 className="text-[25px] font-[700] text-center mb-[20px]">
             Login
           </h2>
@@ -124,7 +130,9 @@ const Login = () => {
               <span>Github Login</span>
             </button>
           </div>
-          <p>If You Hanve No Acount <Link to='/register'>Register</Link></p>
+          <p className="mt-[20px]">
+            If You Hanve No Acount <Link to="/register">Register</Link>
+          </p>
         </div>
       </div>
     </div>
