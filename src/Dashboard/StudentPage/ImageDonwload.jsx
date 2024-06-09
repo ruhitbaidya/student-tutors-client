@@ -20,12 +20,11 @@ const ImageDonwload = ({ image }) => {
         console.log(err)
     }
   };
-
+  handelImageDownload();
   return (
     <div className="mt-[30px]">
       <ToastContainer />
       <a
-      onClick={handelImageDownload}
       className="cursor border border-gray-600 py-[12px] px-[30px] text-gray-900"
         href={images}
         download={imagePart[4]}
