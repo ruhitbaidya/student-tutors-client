@@ -5,10 +5,9 @@ import DateMatch from "../../Hooks/DateMatch";
 import Swal from "sweetalert2";
 import useUserContext from "../../Hooks/UserContext/useUserContext";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
-import ReactStars from "react-rating-stars-component";
+import Allreviews from "./Allreviews";
+
 const SessionDetails = () => {
-  const [reviLoading, setRevLoadin] = useState(false);
-  const [stReiew, setStReview] = useState([]);
   const [rolecheck, setRolecheck] = useState(true);
   const secureApiCall = useSecureApi();
   const { user } = useUserContext();
@@ -19,20 +18,14 @@ const SessionDetails = () => {
   const [secureData] = useQueryGetSecure(`/sessionDetails/${ids}`);
 
   useEffect(() => {
-    setRevLoadin(true);
     secureApiCall
       .get(`checkRole/${user?.email}`)
       .then((res) => setRolecheck(res.data.roles))
       .catch((err) => console.log(err));
     setDetailsData(secureData?.data);
   }, [secureData, secureApiCall, user]);
-  secureApiCall
-    .get(`/getallreview/${detailsdata?._id}`)
-    .then((res) => {
-      setRevLoadin(false);
-      setStReview(res?.data);
-    })
-    .catch((err) => console.log(err));
+
+
   console.log(detailsdata);
   const handelpayment = (price, id, email) => {
     if (price > 0) {
@@ -62,8 +55,7 @@ const SessionDetails = () => {
         .catch((err) => console.log(err));
     }
   };
-  const ratingAvarage = stReiew?.reduce((a, b) => a + b.ratings, 0);
-  console.log(ratingAvarage);
+
   if (rolecheck === "student") {
     setRolecheck(false);
   }
@@ -77,7 +69,9 @@ const SessionDetails = () => {
           </p>
           <div className="lg:flex gap-[30px] items-center">
             <div className="flex-1 text-center mb-[30px]">
-              <h2 className="text-3xl font-[600] mb-[20px]">Bye This Cource on Time</h2>
+              <h2 className="text-3xl font-[600] mb-[20px]">
+                Bye This Cource on Time
+              </h2>
               <button
                 onClick={() =>
                   handelpayment(
@@ -97,7 +91,7 @@ const SessionDetails = () => {
                 {DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate)
                   ? "Close"
                   : "Book Now"}
-                    <span className="pl-[5px]">${detailsdata?.registerFree}</span>
+                <span className="pl-[5px]">${detailsdata?.registerFree}</span>
               </button>
             </div>
             <div className="flex-1">
@@ -127,41 +121,14 @@ const SessionDetails = () => {
             </p>
           </div>
 
-          <p className="bg-green-400 p-[8px] text-white text-center font-[600] text-2xl">Class Duration : {detailsdata?.classDuration}</p>
-
-          <p className="bg-green-400 p-[8px] text-white text-center font-[600] text-2xl">Rating : {ratingAvarage / 5}</p>
+          <p className="bg-green-400 p-[8px] text-white text-center font-[600] text-2xl">
+            Class Duration : {detailsdata?.classDuration}
+          </p>
         </div>
       </div>
       {/* all review session */}
-
-      <div className="w-[70%] mx-auto">
-        <h2 className="text-3xl font-[700] mt-[30px]">All Review</h2>
-        <div>
-          <div>
-            {reviLoading ? (
-              <p>Loading....</p>
-            ) : (
-              stReiew &&
-              stReiew?.map((item) => {
-                return (
-                  <div key={item._id} className="border mt-[20px] p-[20px]">
-                    <p>{item.review}</p>
-                    <p>
-                      <ReactStars
-                        value={item.ratings}
-                        count="5"
-                        size={20}
-                        activeColor="#ffd700"
-                        edit={false}
-                      />
-                    </p>
-                  </div>
-                );
-              })
-            )}
-          </div>
-        </div>
-      </div>
+      <Allreviews id={detailsdata?._id} />
+      
     </div>
   );
 };
