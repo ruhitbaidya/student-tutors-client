@@ -26,31 +26,31 @@ const Allsession = () => {
   const pages = Array.from({length : page}, (_,index)=> index + 1 );
   
   return (
-    <div className="container mx-auto my-[50px]">
+    <div className="container mx-auto my-[50px] px-[10px]">
       <div>
         <h2 className="text-4xl font-[600] text-center mb-[50px]">
           See All Session
         </h2>
       </div>
-      {loading ?  <><div className="h-[70vh] flex justify-center items-center"><span className="loading loading-dots loading-lg"></span></div></> : <div className="grid grid-cols-3 gap-[30px]">
+      {loading ?  <><div className="h-[70vh] flex justify-center items-center"><span className="loading loading-dots loading-lg"></span></div></> : <div className="grid lg:grid-cols-3 gap-[30px]">
         {docCount?.map((item) => {
           return (
-            <div key={item._id} className="p-[15px] bg-gray-200 rounded-lg">
+            <div key={item._id} className="p-[15px] flex-col justify-between items-end bg-gray-200 rounded-lg">
               <div className="space-y-3">
                 <h2 className="text-2xl font-[600]">{item.sessionTitle}</h2>
-                <p>{item.sessionDescription}</p>
+                <p>{item.sessionDescription.slice(0, 100)}</p>
               </div>
               <div className="mt-[20px]">
                 <button
                   disabled={DateMatch(item.regStartDate, item.regEndDate)}
-                  className="py-[8px] px-[20px] border border-gray-400 bg-gray-50 mr-[5px]"
+                  className="py-[8px] px-[20px] rounded-full border border-gray-400 bg-gray-50 mr-[5px]"
                 >
                   {DateMatch(item?.regStartDate, item?.regEndDate)
               ? "Close"
               : "Ongoing"}
                 </button>
                 <Link to={`/details/${item._id}`}>
-                  <button className="py-[8px] px-[20px] border border-gray-400 bg-gray-50">
+                  <button className="py-[8px] rounded-full px-[20px] border border-gray-400 bg-gray-50">
                     Read More
                   </button>
                 </Link>

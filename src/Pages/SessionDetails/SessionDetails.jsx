@@ -7,6 +7,7 @@ import useUserContext from "../../Hooks/UserContext/useUserContext";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
 import ReactStars from "react-rating-stars-component";
 const SessionDetails = () => {
+  const [reviLoading, setRevLoadin] = useState(false);
   const [stReiew, setStReview] = useState([]);
   const [rolecheck, setRolecheck] = useState(true);
   const secureApiCall = useSecureApi();
@@ -18,16 +19,20 @@ const SessionDetails = () => {
   const [secureData] = useQueryGetSecure(`/sessionDetails/${ids}`);
 
   useEffect(() => {
+    setRevLoadin(true);
     secureApiCall
       .get(`checkRole/${user?.email}`)
       .then((res) => setRolecheck(res.data.roles))
       .catch((err) => console.log(err));
     setDetailsData(secureData?.data);
-    secureApiCall
-      .get(`/getallreview/${detailsdata?._id}`)
-      .then((res) => setStReview(res?.data))
-      .catch((err) => console.log(err));
-  }, [secureData, secureApiCall, user, detailsdata]);
+  }, [secureData, secureApiCall, user]);
+  secureApiCall
+    .get(`/getallreview/${detailsdata?._id}`)
+    .then((res) => {
+      setRevLoadin(false);
+      setStReview(res?.data);
+    })
+    .catch((err) => console.log(err));
   console.log(detailsdata);
   const handelpayment = (price, id, email) => {
     if (price > 0) {
@@ -57,70 +62,103 @@ const SessionDetails = () => {
         .catch((err) => console.log(err));
     }
   };
+  const ratingAvarage = stReiew?.reduce((a, b) => a + b.ratings, 0);
+  console.log(ratingAvarage);
   if (rolecheck === "student") {
     setRolecheck(false);
   }
   return (
-    <div className="my-[50px]">
+    <div className="my-[50px] px-[10px]">
       <div>
         <h2 className="text-center text-3xl font-[700]">Session Details</h2>
-        <div className="w-[70%] mx-auto p-[20px] border mt-[20px]">
-          <h2 className="text-2xl text-center font-[600]">
-            {detailsdata?.sessionTitle}
-          </h2>
-          <p className="mt-[10px] text-center text-1xl">
-            {detailsdata?.sessionDescription}
+        <div className="lg:w-[70%] mx-auto p-[20px] border mt-[20px] space-y-6">
+          <p className="text-center font-[600] text-2xl">
+            Tutor : {detailsdata?.tutorName}
           </p>
-          <p>Tutor : {detailsdata?.tutorName}</p>
+          <div className="lg:flex gap-[30px] items-center">
+            <div className="flex-1 text-center mb-[30px]">
+              <h2 className="text-3xl font-[600] mb-[20px]">Bye This Cource on Time</h2>
+              <button
+                onClick={() =>
+                  handelpayment(
+                    detailsdata?.registerFree,
+                    detailsdata?._id,
+                    detailsdata?.tutorEmail
+                  )
+                }
+                disabled={
+                  rolecheck ||
+                  DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate)
+                    ? true
+                    : false
+                }
+                className="py-[8px] px-[30px] border border-gray-400 bg-gray-50 mr-[5px]"
+              >
+                {DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate)
+                  ? "Close"
+                  : "Book Now"}
+                    <span className="pl-[5px]">${detailsdata?.registerFree}</span>
+              </button>
+            </div>
+            <div className="flex-1">
+              <h2 className="text-2xl  font-[600]">
+                {detailsdata?.sessionTitle}
+              </h2>
+              <p className="mt-[10px] text-1xl">
+                {detailsdata?.sessionDescription}
+              </p>
+            </div>
+          </div>
 
-          <p>Rating</p>
+          <div className="flex gap-[30px]">
+            <p className="bg-green-400 flex-1 p-[8px] text-white">
+              Registration Start : {detailsdata?.regStartDate}
+            </p>
+            <p className="bg-red-400 flex-1 text-white p-[8px]">
+              Registration End :{detailsdata?.regEndDate}
+            </p>
+          </div>
+          <div className="flex gap-[30px]">
+            <p className="bg-green-400 flex-1 p-[8px] text-white">
+              Class Start :{detailsdata?.classStateDate}
+            </p>
+            <p className="bg-red-400 flex-1 text-white p-[8px]">
+              Class End :{detailsdata?.classEndDate}
+            </p>
+          </div>
 
-          <p>Registration Start : {detailsdata?.regStartDate}</p>
-          <p>Registration End :{detailsdata?.regEndDate}</p>
-          <p>Class Start :{detailsdata?.classStateDate}</p>
-          <p>Class End :{detailsdata?.classEndDate}</p>
-          <p>Class Duration : {detailsdata?.classDuration}</p>
-          <p>Price : {detailsdata?.registerFree}</p>
-          <p>Student Review</p>
-          <button
-            onClick={() =>
-              handelpayment(
-                detailsdata?.registerFree,
-                detailsdata?._id,
-                detailsdata?.tutorEmail
-              )
-            }
-            disabled={
-              rolecheck ||
-              DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate)
-                ? true
-                : false
-            }
-            className="py-[8px] px-[20px] border border-gray-400 bg-gray-50 mr-[5px]"
-          >
-            {DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate)
-              ? "Close"
-              : "Book Now"}
-          </button>
+          <p className="bg-green-400 p-[8px] text-white text-center font-[600] text-2xl">Class Duration : {detailsdata?.classDuration}</p>
+
+          <p className="bg-green-400 p-[8px] text-white text-center font-[600] text-2xl">Rating : {ratingAvarage / 5}</p>
         </div>
       </div>
       {/* all review session */}
-      
+
       <div className="w-[70%] mx-auto">
-      <h2 className="text-3xl font-[700] mt-[30px]">All Review</h2>
+        <h2 className="text-3xl font-[700] mt-[30px]">All Review</h2>
         <div>
           <div>
-            {stReiew &&
+            {reviLoading ? (
+              <p>Loading....</p>
+            ) : (
+              stReiew &&
               stReiew?.map((item) => {
                 return (
                   <div key={item._id} className="border mt-[20px] p-[20px]">
                     <p>{item.review}</p>
                     <p>
-                      <ReactStars value={item.ratings} count="5" size={20} activeColor="#ffd700" edit={false} />
+                      <ReactStars
+                        value={item.ratings}
+                        count="5"
+                        size={20}
+                        activeColor="#ffd700"
+                        edit={false}
+                      />
                     </p>
                   </div>
                 );
-              })}
+              })
+            )}
           </div>
         </div>
       </div>

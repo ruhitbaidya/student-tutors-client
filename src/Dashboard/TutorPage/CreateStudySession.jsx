@@ -61,7 +61,7 @@ const CreateStudySession = () => {
                 </textarea>
               </label>
             </div>
-            <div className="flex justify-between items-center gap-[30px]">
+            <div className="lg:flex justify-between items-center gap-[30px]">
               <label className="form-control w-full">
                 <div className="label">
                   <span className="label-text">Register Start Date</span>
@@ -86,7 +86,7 @@ const CreateStudySession = () => {
                 />
               </label>
             </div>
-            <div className="flex justify-between items-center gap-[30px]">
+            <div className="lg:flex justify-between items-center gap-[30px]">
               <label className="form-control w-full">
                 <div className="label">
                   <span className="label-text">Class Start</span>

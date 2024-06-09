@@ -109,7 +109,7 @@ const Dashboard = () => {
   }
   return (
     <div className=" m-[5px]">
-      <div className="drawer lg:hidden">
+      <div className="drawer lg:hidden z-10">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Page content here */}
@@ -154,7 +154,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-9">
+          <div className="lg:col-span-9 col-span-12">
             <div className="bg-[#1D1E3C]">
               <div className="flex justify-between items-center py-[8px] px-[10px]">
                 <div>

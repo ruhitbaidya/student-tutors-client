@@ -18,16 +18,16 @@ const ViewAllmeterial = () => {
     .catch((err)=> console.log(err))
   }
   return (
-    <div className="grid grid-cols-2 gap-[30px]">
+    <div className="grid lg:grid-cols-2 gap-[30px]">
         {
           secureData && secureData?.data?.map((item)=>{
               return <div key={item._id} className="bg-white p-[10px] space-y-3 rounded-lg">
                     <div>
-                      <img className="h-40 w-full object-contain" src={item.imageurl} alt="" />
+                      <img className="h-40 w-full object-cover" src={item.imageurl} alt="" />
                     </div>
                     <div>
                       <h2>{item.title}</h2>
-                      <p>{item.links}</p>
+                      <p> <Link to={item.links} target="_blank">View Link</Link> </p>
                     </div>
                     <div>
                       <Link to={`/dashboard/tutorUpdatemetrial/${item._id}`}>

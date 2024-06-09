@@ -60,7 +60,7 @@ const Register = () => {
     <div className="my-[50px]">
       <div className="container mx-auto">
         <ToastContainer />
-        <div className="w-[50%] mx-auto shadow-lg p-[30px] rounded-lg">
+        <div className="lg:w-[50%] mx-auto shadow-lg p-[30px] rounded-lg">
           <h2 className="text-center text-3xl font-[700]">Register</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>

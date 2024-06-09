@@ -15,7 +15,7 @@ const ShowAllMetrial = () => {
   return (
     <div>
         <div>
-            <div className="grid grid-cols-2 gap-[30px]">
+            <div className="grid lg:grid-cols-2 gap-[30px]">
                 {
                     metrials?.length > 0 ? metrials?.map((item)=>{
                         return <div key={item._id} className="bg-gray-300 p-[20px] rounded-lg space-y-4">
@@ -23,13 +23,13 @@ const ShowAllMetrial = () => {
                                 <img className="h-[200px] object-cover w-full rounded-lg" src={item.imageurl} alt="" />
                             </div>
                             <div>
-                                <Link to={item.links}>Google Links Click Here</Link>
+                                <a href={item.links} target="_blank">Google Links Click Here</a>
                             </div>
                             <div>
                                 <button className="border py-[12px] px-[30px]">Download</button>
                             </div>
                         </div>
-                    }) : <p className="text-center text-4xl font-[600]">No Metrial Found Here</p>
+                    }) : <p className="text-center lg:text-4xl font-[600]">No Metrial Found Here</p>
                 }
             </div>
         </div>

@@ -50,7 +50,7 @@ const StSessionDetails = () => {
           <h2 className="text-center text-3xl font-[700]">
             {details.sessionTitle}
           </h2>
-          <p className="text-2xl text-center mt-[20px]">
+          <p className="lg:text-2xl text-center mt-[20px]">
             {details.sessionDescription}
           </p>
           <div className="flex justify-between items-center mt-[30px]">
@@ -68,7 +68,7 @@ const StSessionDetails = () => {
               <ReactStars
                 count={5}
                 onChange={ratingChanged}
-                size={50}
+                size={30}
                 isHalf={true}
                 activeColor="#ffd700"
               />

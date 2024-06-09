@@ -14,9 +14,9 @@ const AllTutors = () => {
 
   console.log("alluser", alltutor);
   return (
-    <div className="my-[50px] container mx-auto">
+    <div className="my-[50px] container mx-auto px-[10px]">
       <div>
-        <div className="w-[70%] mx-auto text-center mb-[50px]">
+        <div className="lg:w-[70%] mx-auto text-center mb-[50px]">
           <h2 className="text-[25px] font-[600] mb-[12px]">
             Meet Our All Tutors
           </h2>
@@ -29,9 +29,9 @@ const AllTutors = () => {
           <hr className="w-[20%] mx-auto border border-gray-500 mt-[20px]" />
         </div>
         <div>
-          <div className="grid grid-cols-2 gap-[30px] items-center">
+          <div className="grid lg:grid-cols-2 gap-[30px] items-center">
             <div>
-              <div className="p-[120px]">
+              <div className="lg:p-[120px] hidden lg:block">
               <Swiper
                 effect={"cards"}
                 grabCursor={true}

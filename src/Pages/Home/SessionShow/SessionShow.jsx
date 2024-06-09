@@ -21,8 +21,8 @@ const SessionShow = () => {
   console.log();
 
   return (
-    <div className="my-[70px]">
-      <div className="w-[70%] mx-auto text-center mb-[50px]">
+    <div className="my-[70px] px-[10px]">
+      <div className="w-[100%] lg:w-[70%] mx-auto text-center mb-[50px]">
         <h2 className="text-[25px] font-[600] mb-[12px]">
           Embracing Serenity: A Journey to Inner Peace
         </h2>
@@ -34,24 +34,24 @@ const SessionShow = () => {
         </p>
         <hr className="w-[20%] mx-auto border border-gray-500 mt-[20px]" />
       </div>
-      <div className="grid grid-cols-3 gap-[30px]">
+      <div className="grid lg:grid-cols-3 gap-[30px]">
         {sesstion &&
           sesstion?.map((item) => {
             return (
-              <div key={item._id} className="p-[15px] bg-gray-200 rounded-lg flex-col justify-between items-baseline">
+              <div key={item._id} className="p-[15px] bg-gray-200 rounded-lg flex-col justify-between items-center">
                 <div className="space-y-3">
                   <h2 className="text-2xl font-[600]">{item.sessionTitle}</h2>
-                  <p>{item.sessionDescription}</p>
+                  <p>{item.sessionDescription.slice(0, 100)}</p>
                 </div>
                 <div className="mt-[20px]">
                   <button
                     disabled={DateMatch(item.regStartDate, item.regEndDate)}
-                    className="py-[8px] px-[20px] border border-gray-400 bg-gray-50 mr-[5px]"
+                    className="py-[8px] rounded-full px-[20px] border border-gray-400 bg-gray-50 mr-[5px]"
                   >
                     {DateMatch(item.regStartDate, item.regEndDate ) ? "Closed" : "Ongoing"}
                   </button>
                   <Link to={`/details/${item._id}`}>
-                    <button className="py-[8px] px-[20px] border border-gray-400 bg-gray-50">
+                    <button className="py-[8px] rounded-full px-[20px] border border-gray-400 bg-gray-50">
                       Read More
                     </button>
                   </Link>

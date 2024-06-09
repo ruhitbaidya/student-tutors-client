@@ -7,7 +7,7 @@ const UploadMetarial = () => {
   const [secureData] = useQueryGetSecure(`TutorOnlyApprove/${user?.email}`)
   return (
   <>
-    <div className="grid grid-cols-2 gap-[23px]">
+    <div className="grid lg:grid-cols-2 gap-[23px]">
     {
        secureData && secureData.data?.map((item)=>{
         return <div key={item._id} className="bg-white p-[20px] space-y-3 rounded-lg">

@@ -76,7 +76,7 @@ const Login = () => {
     <div className="my-[50px]">
       <div className="container mx-auto">
         <ToastContainer />
-        <div className="w-[50%] mx-auto shadow-lg p-[30px] rounded-lg">
+        <div className="lg:w-[50%] mx-auto shadow-lg p-[30px] rounded-lg">
           <h2 className="text-[25px] font-[700] text-center mb-[20px]">
             Login
           </h2>

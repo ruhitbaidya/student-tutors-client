@@ -8,7 +8,7 @@ const ViewBookedSection = () => {
   const [secureData] = useQueryGetSecure(`/allbooksession/${user.email}`);
   console.log(secureData)
   return (
-    <div className="grid grid-cols-2 gap-[30px]">
+    <div className="grid lg:grid-cols-2 gap-[30px]">
         {
           secureData?.data?.map((item)=> {
             return <div key={item._id} className="bg-gray-300 p-[20px] space-y-4 rounded-lg">

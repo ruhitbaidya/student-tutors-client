@@ -6,12 +6,12 @@ const Banner = () => {
   return (
     <div className="addBgImage">
       <div className="addcolors py-[150px]">
-        <div className="w-[70%] mx-auto">
-          <p className="text-center text-[20px] text-white mb-[20px]">
+        <div className="lg:w-[70%] mx-auto">
+          <p className="text-center lg:text-[20px] text-white mb-[20px]">
             Crafting Code Your Path to Mastery in Web and App Development <br />{" "}
             Learn, Build, Innovate with Us!
           </p>
-          <h2 className="text-[40px] text-white text-center font-[700] mb-[35px]">
+          <h2 className="lg:text-[40px] text-white text-center font-[700] mb-[35px]">
             {" "}
             We are Teaching{" "}
             <Typewriter

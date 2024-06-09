@@ -34,6 +34,7 @@ const MetarialuploadPage = () => {
                 setPageLoad(false)
                 console.log(res)
                 toast.success("Metrial Add")
+                e.target.reset()
             })
             .catch((err)=> console.log(err))
            }

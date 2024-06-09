@@ -68,8 +68,8 @@ const ManagePersonalNotes = () => {
                   <p>{item.noteDescription}</p>
                 </div>
                 <div>
-                  <button onClick={()=> handelUpdate(item._id)} className="py-[8px] px-[30px] border bg-yellow-400">Update</button>
-                  <button onClick={()=> handeldelete(item._id)} className="py-[8px] px-[30px] border bg-red-400 ml-4">Delete</button>
+                  <button onClick={()=> handelUpdate(item._id)} className="py-[8px] w-full px-[30px] border bg-yellow-400 mt-[10px]">Update</button>
+                  <button onClick={()=> handeldelete(item._id)} className="py-[8px] px-[30px] border bg-red-400  w-full mt-[10px]">Delete</button>
                 </div>
               </div>
             })
