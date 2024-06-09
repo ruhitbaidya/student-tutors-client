@@ -1,6 +1,7 @@
 import {useLocation} from "react-router-dom"
 import useQueryGetSecure from "../../Hooks/QueryGet/useQueryGetSecure";
 import { useEffect, useState } from "react";
+import ImageDonwload from "./ImageDonwload";
 
 const ShowAllMetrial = () => {
     const [metrials, setMetrials] = useState([])
@@ -26,7 +27,7 @@ const ShowAllMetrial = () => {
                                 <a href={item.links} target="_blank">Google Links Click Here</a>
                             </div>
                             <div>
-                                <button className="border py-[12px] px-[30px]">Download</button>
+                                <ImageDonwload image={item.imageurl} />
                             </div>
                         </div>
                     }) : <p className="text-center lg:text-4xl font-[600]">No Metrial Found Here</p>
