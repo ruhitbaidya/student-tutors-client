@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import useUserContext from "../../Hooks/UserContext/useUserContext";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
 import Allreviews from "./Allreviews";
-import DownloadImageComponent from "./Image";
 
 const SessionDetails = () => {
   const [rolecheck, setRolecheck] = useState(true);
@@ -125,7 +124,6 @@ const SessionDetails = () => {
           <p className="bg-green-400 p-[8px] text-white text-center font-[600] text-2xl">
             Class Duration : {detailsdata?.classDuration}
           </p>
-          <DownloadImageComponent />
         </div>
       </div>
       {/* all review session */}
