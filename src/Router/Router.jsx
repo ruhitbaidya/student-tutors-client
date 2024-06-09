@@ -145,7 +145,7 @@ const router = createBrowserRouter([
         path: "tutorUpdatemetrial/:id",
         loader: ({ params }) => {
           console.log(params.id);
-          return axios.get(`http://localhost:5000/getForUpdate/${params.id}`);
+          return axios.get(`https://student-tutor.vercel.app/getForUpdate/${params.id}`);
         },
         element: <UpdateMetrial></UpdateMetrial>,
       },
@@ -192,7 +192,7 @@ const router = createBrowserRouter([
       {
         path: "sessionDetailSt/:id",
         loader: ({ params }) =>
-          axios.get(`http://localhost:5000/getDetails/${params.id}`),
+          axios.get(`https://student-tutor.vercel.app/getDetails/${params.id}`),
         element: <StSessionDetails></StSessionDetails>,
       },
     ],

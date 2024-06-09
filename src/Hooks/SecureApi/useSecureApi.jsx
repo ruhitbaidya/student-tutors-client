@@ -2,7 +2,7 @@ import axios from "axios";
 import useUserContext from "../UserContext/useUserContext";
 
 const secureApiCall = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://student-tutor.vercel.app",
 });
 
 const useSecureApi = () => {

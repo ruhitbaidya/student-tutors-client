@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const publicApicall = axios.create({
-    baseURL : 'http://localhost:5000'
+    baseURL : 'https://student-tutor.vercel.app'
 })
 
 const usePullicApi = () => {

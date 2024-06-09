@@ -52,7 +52,7 @@ const CheckOut = () => {
     const { error } = await stripes.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:5173/payment",
+        return_url: "https://students-tutors.web.app/payment",
       },
     });
 
