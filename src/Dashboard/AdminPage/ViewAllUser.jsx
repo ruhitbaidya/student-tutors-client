@@ -5,10 +5,19 @@ import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
 import Swal from "sweetalert2";
 const ViewAllUser = () => {
   const [users, setUsers] = useState([]);
-  const [secureData, refetch] = useQueryGetSecure("/getAllUser");
+  const [pageLoad, setpageLoad] = useState(false);
+  const [page, setPage] = useState(0);
+  const [sentPage, setSendPage] = useState(0)
+  const [secureData, refetch] = useQueryGetSecure(`/getAllUser/${sentPage}`);
+  console.log(secureData)
   const secureApiCall = useSecureApi();
   useEffect(() => {
+    setpageLoad(true)
     setUsers(secureData?.data);
+    setPage(Math.ceil(secureData?.data?.counts / 6))
+    if(secureData?.data){
+      setpageLoad(false)
+    }
   }, [secureData]);
 
   const handelSeachUser = (e) => {
@@ -56,8 +65,10 @@ const ViewAllUser = () => {
       }
     });
   };
-  console.log(users);
-
+  console.log(users, page);
+  
+  const findsPage = Array.from({length : page}, (_,index)=> index + 1)
+  console.log(findsPage)
   return (
     <div>
       <div>
@@ -80,7 +91,7 @@ const ViewAllUser = () => {
           </div>
         </div>
         <div>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto h-[60vh]">
             <table className="table">
               {/* head */}
               <thead>
@@ -91,13 +102,13 @@ const ViewAllUser = () => {
                 </tr>
               </thead>
               <tbody>
-                {users?.length <= 0 && (
+                {users?.result?.length <= 0 && (
                   <div>
                     <p className="text-3xl text-center mt-[30px]">Not User Found</p>
                   </div>
                 )}
                 {users &&
-                  users.map((item) => {
+                  users?.result?.map((item) => {
                     return (
                       <tr key={item._id}>
                         <th>{item.user.name}</th>
@@ -127,6 +138,30 @@ const ViewAllUser = () => {
                   })}
               </tbody>
             </table>
+            {
+                  pageLoad && <div>
+                    <div className="flex justify-center items-center h-[50vh]">
+                    <div>
+                    <span className="loading loading-ring loading-lg block"></span>
+                    </div>
+                    </div>
+                  </div>
+                }
+          </div>
+
+          <div>
+            {/* paginations  */}
+
+            {
+              page > 0 &&  <div className="space-x-2 text-center">
+              <button disabled={sentPage === 0 ? true : false} onClick={()=> setSendPage(sentPage - 1)} className="btn">Prev</button>
+              {findsPage?.map((item, ind)=>{
+                return <button onClick={()=> setSendPage(ind)} className={`${sentPage === ind ? "bg-gray-600 text-white" : "" } border-0 btn`} key={ind}>{item}</button>
+              })}
+              <button disabled={sentPage === page - 1 ? true : false} onClick={()=> setSendPage(sentPage + 1)} className="btn">Next</button>
+            </div>
+            }
+           
           </div>
         </div>
       </div>

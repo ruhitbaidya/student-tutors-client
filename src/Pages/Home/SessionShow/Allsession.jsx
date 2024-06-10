@@ -60,7 +60,8 @@ const Allsession = () => {
         })}
       </div>}
       <div className="text-center mt-[30px]">
-        <div className="">
+        {
+         page > 0 && <div className="">
           <button disabled={currentPage === 0 ? true : false} onClick={()=>setCurrentPage((current)=> current - 1)} ref={btnRef}  className="btn mr-[2px]">Prev</button>
           {
             pages.map((item, ind)=>{
@@ -71,6 +72,7 @@ const Allsession = () => {
           }
           <button disabled={ currentPage === page - 1 ? true : false} onClick={()=>setCurrentPage((current)=> current + 1)}  className="btn ml-[2px]">Next</button>
         </div>
+        }
       </div>
     </div>
   );
