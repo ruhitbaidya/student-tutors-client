@@ -28,12 +28,15 @@ import YourPayment from "../Pages/Payments/YourPayment";
 import StSessionDetails from "../Dashboard/StudentPage/StSessionDetails";
 import ShowAllMetrial from "../Dashboard/StudentPage/ShowAllMetrial";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import About from "../Pages/About/About";
+import Services from "../Pages/Services/Services";
+import Contact from "../Pages/Contact/Contact";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
-    errorElement : <ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -42,6 +45,18 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/services",
+        element: <Services />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
       {
         path: "/signin",
@@ -145,7 +160,7 @@ const router = createBrowserRouter([
         path: "tutorUpdatemetrial/:id",
         loader: ({ params }) => {
           console.log(params.id);
-          return axios.get(`https://student-tutor.vercel.app/getForUpdate/${params.id}`);
+          return axios.get(`http://localhost:5000/getForUpdate/${params.id}`);
         },
         element: <UpdateMetrial></UpdateMetrial>,
       },
@@ -192,7 +207,7 @@ const router = createBrowserRouter([
       {
         path: "sessionDetailSt/:id",
         loader: ({ params }) =>
-          axios.get(`https://student-tutor.vercel.app/getDetails/${params.id}`),
+          axios.get(`http://localhost:5000/getDetails/${params.id}`),
         element: <StSessionDetails></StSessionDetails>,
       },
     ],

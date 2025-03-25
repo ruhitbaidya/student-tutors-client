@@ -118,7 +118,6 @@ const Dashboard = () => {
           </label>
         </div>
         <div className="drawer-side">
-          
           <label
             htmlFor="my-drawer"
             aria-label="close sidebar"
@@ -145,7 +144,7 @@ const Dashboard = () => {
                     </div>
                   </Link>
                   <hr className="mb-[20px]" />
-                  <div className="min-h-[100vh]">
+                  <div className="min-h-screen">
                     <div>
                       <ul className="listDesign text-[#A6AFBB]">{links}</ul>
                     </div>
@@ -211,24 +210,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-{
-  /* <li> <NavLink> View booked session </NavLink> </li>
-        <li> <NavLink>  Create note </NavLink> </li>
-        <li> <NavLink>  Manage personal notes </NavLink> </li>
-        <li> <NavLink> View all study materials </NavLink> </li>
-        {/* tutors router  */
-}
-// <li> <NavLink> Create study session </NavLink> </li>
-// <li> <NavLink>  View all study sessions </NavLink> </li>
-// <li> <NavLink>  Upload materials </NavLink> </li>
-// <li> <NavLink>  View all materials </NavLink> </li>
-// <li> <NavLink>  View all notes </NavLink> </li>
-{
-  /* admin route */
-}
-{
-  /* <li> <NavLink> View all users </NavLink> </li>
-<li> <NavLink>  View all study session </NavLink> </li>
-<li> <NavLink> View all materials </NavLink> </li> */
-}

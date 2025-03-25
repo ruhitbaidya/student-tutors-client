@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import useQueryGetPublic from "../../../Hooks/QueryGet/useQueryGet";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCards } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/effect-cards';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCards } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-cards";
 const AllTutors = () => {
   const [alltutor, setAllTutor] = useState([]);
   const [publicData] = useQueryGetPublic("/getAllTutors");
@@ -14,9 +14,9 @@ const AllTutors = () => {
 
   console.log("alluser", alltutor);
   return (
-    <div className="my-[50px] container mx-auto px-[10px]">
+    <div className="my-[20px] container mx-auto px-[10px]">
       <div>
-        <div className="lg:w-[70%] mx-auto text-center mb-[50px]">
+        <div className="lg:w-[70%] mx-auto text-center">
           <h2 className="text-[25px] font-[600] mb-[12px]">
             Meet Our All Tutors
           </h2>
@@ -26,30 +26,35 @@ const AllTutors = () => {
             innovative, supportive, and committed to personalized learning
             success.
           </p>
-          <hr className="w-[20%] mx-auto border border-gray-500 mt-[20px]" />
+          <hr className="w-[20%] mx-auto border border-gray-500 mt-[10px]" />
         </div>
         <div>
           <div className="grid lg:grid-cols-2 gap-[30px] items-center">
             <div>
               <div className="lg:p-[120px] hidden lg:block">
-              <Swiper
-                effect={"cards"}
-                grabCursor={true}
-                modules={[EffectCards]}
-                className="mySwiper"
-              >
-                {
-                    alltutor?.map((item)=>{
-                        return <SwiperSlide key={item._id}>
-                            <div className="border-2 border-blue-500 rounded-lg bg-white">
-                                <img className="h-[350px] w-full object-cover rounded-lg" src={item?.user?.images} alt="" />
-                                <h2 className="bg-white text-center text-[20px] font-[600] rounded-lg">{item?.user?.name}</h2>
-                            </div>
-                        </SwiperSlide>
-                    })
-                }
-                
-              </Swiper>
+                <Swiper
+                  effect={"cards"}
+                  grabCursor={true}
+                  modules={[EffectCards]}
+                  className="mySwiper z-0 !important"
+                >
+                  {alltutor?.map((item) => {
+                    return (
+                      <SwiperSlide key={item._id}>
+                        <div className="border-2 border-blue-500 rounded-lg bg-white">
+                          <img
+                            className="h-[350px] w-full object-cover rounded-lg z-0"
+                            src={item?.user?.images}
+                            alt=""
+                          />
+                          <h2 className="bg-white text-center text-[20px] font-[600] rounded-lg">
+                            {item?.user?.name}
+                          </h2>
+                        </div>
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
               </div>
             </div>
             <div>
