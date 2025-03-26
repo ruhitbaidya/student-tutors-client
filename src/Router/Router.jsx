@@ -31,6 +31,8 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import About from "../Pages/About/About";
 import Services from "../Pages/Services/Services";
 import Contact from "../Pages/Contact/Contact";
+import Blogs from "../Pages/Blogs/Blogs";
+import CreateBlog from "../Dashboard/AdminPage/CreateBlog";
 
 const router = createBrowserRouter([
   {
@@ -59,16 +61,17 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
       {
+        path: "/blog",
+        element: <Blogs />,
+      },
+
+      {
         path: "/signin",
         element: <Login></Login>,
       },
       {
         path: "/details/:id",
-        element: (
-          <PrivateRouter>
-            <SessionDetails></SessionDetails>
-          </PrivateRouter>
-        ),
+        element: <SessionDetails></SessionDetails>,
       },
       {
         path: "/allSession",
@@ -113,6 +116,14 @@ const router = createBrowserRouter([
         element: (
           <AdminPageProtact>
             <ViewAllMetirial></ViewAllMetirial>
+          </AdminPageProtact>
+        ),
+      },
+      {
+        path: "blog",
+        element: (
+          <AdminPageProtact>
+            <CreateBlog />
           </AdminPageProtact>
         ),
       },

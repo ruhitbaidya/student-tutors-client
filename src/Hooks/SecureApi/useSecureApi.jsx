@@ -7,7 +7,7 @@ const secureApiCall = axios.create({
 
 const useSecureApi = () => {
   const { user } = useUserContext();
-  const email = user.email;
+  const email = user?.email;
   secureApiCall.interceptors.request.use(
     function (config) {
       const tokens = JSON.parse(localStorage.getItem("token"));
