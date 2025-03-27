@@ -52,13 +52,13 @@ const SessionShow = () => {
               <span
                 className={`px-4 py-2 rounded-full text-sm font-medium ${
                   DateMatch(item.regStartDate, item.regEndDate)
-                    ? "bg-gray-200 text-gray-600"
-                    : "bg-green-100 text-green-800"
+                    ? " bg-green-100 text-green-800"
+                    : "bg-gray-200 text-gray-600"
                 }`}
               >
                 {DateMatch(item.regStartDate, item.regEndDate)
-                  ? "Closed"
-                  : "Open"}
+                  ? "Open"
+                  : "Closed"}
               </span>
               <Link
                 to={`/details/${item._id}`}

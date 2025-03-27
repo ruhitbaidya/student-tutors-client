@@ -84,8 +84,8 @@ const Allsession = () => {
                       }`}
                     >
                       {DateMatch(item.regStartDate, item.regEndDate)
-                        ? "Registration Closed"
-                        : "Registration Open"}
+                        ? "Registration Open"
+                        : "Registration Close"}
                     </span>
                     <Link
                       to={`/details/${item._id}`}

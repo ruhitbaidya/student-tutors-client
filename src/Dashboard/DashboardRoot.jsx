@@ -11,21 +11,14 @@ import {
   Line,
 } from "recharts";
 import useQueryGetSecure from "../Hooks/QueryGet/useQueryGetSecure";
+import useUserContext from "../Hooks/UserContext/useUserContext";
 
 const DashboardRoot = () => {
+  const { user } = useUserContext();
   const [allCounts, setAllCounts] = useState(null);
   const [notAdmin, setNotAdmin] = useState(false);
   const [chartdata, setChartData] = useState(null);
   const [secureData] = useQueryGetSecure("/admin-chart");
-  useEffect(() => {
-    const res = secureData;
-    if (!res?.data?.success) {
-      setNotAdmin(true);
-      return;
-    }
-    setAllCounts(res?.data);
-    setChartData(transformData(res?.data));
-  }, [secureData]);
   const transformData = (data) => {
     return Object.entries(data).map(([key, value]) => ({
       name: key.charAt(0).toUpperCase() + key.slice(1),
@@ -33,6 +26,18 @@ const DashboardRoot = () => {
       lineValue: value * 1.1,
     }));
   };
+  useEffect(() => {
+    const res = secureData;
+    if (res?.data) {
+      setNotAdmin(false);
+      setAllCounts(res?.data);
+      setChartData(transformData(res?.data));
+    }
+    if (res?.data?.success === false) {
+      setNotAdmin(true);
+    }
+  }, [secureData, user]);
+  console.log(secureData);
 
   return (
     <div>

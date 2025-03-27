@@ -24,7 +24,7 @@ const SessionDetails = () => {
   const [publicData] = useQueryGetPublic(`/sessionDetails/${ids}`);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/sessionDetails/${ids}`)
+    fetch(`https://student-tutor.vercel.app/sessionDetails/${ids}`)
       .then((res) => res.json())
       .then((data) => setDetailsData(data));
   }, [publicData, id, ids]);

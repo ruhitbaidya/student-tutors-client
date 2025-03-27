@@ -9,11 +9,10 @@ import {
   FaUserGraduate,
   FaUserShield,
 } from "react-icons/fa";
-
 const Dashboard = () => {
   const { user, logout } = useUserContext();
   const [secureData] = useQueryGetSecure(`checkRole/${user.email}`);
-  const rulesdins = secureData?.data;
+  let rulesdins = secureData?.data;
 
   // Role-based configuration
   const roleConfig = {
