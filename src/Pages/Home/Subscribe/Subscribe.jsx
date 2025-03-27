@@ -1,7 +1,32 @@
+import { useForm } from "react-hook-form";
+import usePullicApi from "../../../Hooks/publicApi/usePullicApi";
+import { toast, ToastContainer } from "react-toastify";
+
 const Subscribe = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const publicApicall = usePullicApi();
+  const onSubmit = (data) => {
+    publicApicall
+      .post(`/subscribe`, data)
+      .then((res) => {
+        if (res.data) {
+          reset();
+          toast.success(res?.data?.message);
+        }
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Header Section */}
+      <ToastContainer />
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
           Stay Updated With Our Courses
@@ -29,22 +54,26 @@ const Subscribe = () => {
             <h3 className="text-2xl font-bold text-gray-800 mb-6">
               Join Our Learning Community
             </h3>
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>
                 <input
+                  {...register("name", { required: true })}
                   className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                   type="text"
                   placeholder="Your Name"
                   required
                 />
+                {errors.name && <span>This field is required</span>}
               </div>
               <div>
                 <input
+                  {...register("email", { required: true })}
                   className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                   type="email"
                   placeholder="Your Email"
                   required
                 />
+                {errors.email && <span>This field is required</span>}
               </div>
               <div>
                 <button

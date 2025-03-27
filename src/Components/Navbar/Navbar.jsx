@@ -246,7 +246,9 @@ const Navbar = () => {
                   ].map((item) => (
                     <li key={item}>
                       <Link
-                        to="#"
+                        onClick={() => setMenus(false)}
+                        to="/allSession"
+                        state={{ text: item }}
                         className="text-gray-600 hover:text-indigo-600 transition-colors"
                       >
                         {item}
@@ -264,7 +266,9 @@ const Navbar = () => {
                     (item) => (
                       <li key={item}>
                         <Link
-                          to="#"
+                          onClick={() => setMenus(false)}
+                          to="/allSession"
+                          state={{ text: item }}
                           className="text-gray-600 hover:text-indigo-600 transition-colors"
                         >
                           {item}
@@ -279,11 +283,13 @@ const Navbar = () => {
                   Desktop App Development
                 </h3>
                 <ul className="space-y-3 pl-2 border-l-2 border-indigo-200">
-                  {["Electron", "Java FX", ".NET", "Qt", "Python"].map(
+                  {["web Development", "Java FX", ".NET", "Qt", "Python"].map(
                     (item) => (
                       <li key={item}>
                         <Link
-                          to="#"
+                          onClick={() => setMenus(false)}
+                          to="/allSession"
+                          state={{ text: item }}
                           className="text-gray-600 hover:text-indigo-600 transition-colors"
                         >
                           {item}

@@ -165,19 +165,19 @@ const SessionDetails = () => {
                 )
               }
               disabled={
-                rolecheck ||
+                rolecheck === "student" &&
                 DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate)
               }
               className={`py-3 px-8 rounded-lg text-lg font-bold transition-all duration-300 ${
-                DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate) ||
-                rolecheck
+                DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate) &&
+                rolecheck === "student"
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                   : "bg-white text-indigo-600 hover:bg-indigo-100 transform hover:scale-105"
               }`}
             >
               {DateMatch(detailsdata?.regStartDate, detailsdata?.regEndDate)
-                ? "Registration Closed"
-                : "Enroll Now"}
+                ? "Enroll Now"
+                : "Closed"}
               {detailsdata?.registerFree > 0 && (
                 <span className="pl-2">for ${detailsdata?.registerFree}</span>
               )}

@@ -23,6 +23,7 @@ const Dashboard = () => {
       links: [
         { path: "/dashboard/viewalluseradmin", label: "View All Users" },
         { path: "/dashboard/blog", label: "Blog" },
+        { path: "/dashboard/profile", label: "My Profile" },
         {
           path: "/dashboard/viewallstudysessionadmin",
           label: "View All Study Sessions",
@@ -45,6 +46,7 @@ const Dashboard = () => {
           path: "/dashboard/viewallstudysessiontutor",
           label: "View All Study Sessions",
         },
+        { path: "/dashboard/profile", label: "My Profile" },
         { path: "/dashboard/uploadmetarialtutor", label: "Upload Materials" },
         {
           path: "/dashboard/viewallmetarialtutor",
@@ -59,6 +61,7 @@ const Dashboard = () => {
         { path: "/dashboard/bookedseddionstudent", label: "Booked Sessions" },
         { path: "/dashboard/createnotesstudent", label: "Create Notes" },
         { path: "/dashboard/managepersonalstudent", label: "Manage Notes" },
+        { path: "/dashboard/profile", label: "My Profile" },
         {
           path: "/dashboard/viewallstudymetrialstudent",
           label: "Study Materials",
@@ -210,7 +213,7 @@ const Dashboard = () => {
 
           {/* Content Area */}
           <main className="p-6 bg-gray-50 min-h-[calc(100vh-72px)]">
-            <Outlet />
+            {<Outlet /> || "thid"}
           </main>
         </div>
       </div>

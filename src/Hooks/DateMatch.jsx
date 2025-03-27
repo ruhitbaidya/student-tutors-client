@@ -1,15 +1,16 @@
-import Curenttimes from "./Curenttimes"
+import Curenttimes from "./Curenttimes";
+
 const DateMatch = (regdatestart, regDateEnd) => {
-    const currentDates = Curenttimes();
-    // const currntDate = new Date('2024-06-11')
-    // const startDate = new Date('2024-06-05')
-    // const endDate = new Date('2024-06-10')
-    // console.log( endDate < currntDate)
+  const currentDate = Date.now(Curenttimes());
+  const startDate = Date.now(regdatestart);
+  const endDate = Date.now(regDateEnd);
 
-    if(new Date(currentDates) >= new Date(regdatestart) && new Date(regDateEnd) <= new Date(currentDates) ){
-        return true;
-    }
-    return false
-}
+  if (currentDate <= startDate && currentDate >= endDate) {
+    console.log("ok");
+    return true;
+  }
+  console.log("Not Ok");
+  return false;
+};
 
-export default DateMatch
+export default DateMatch;

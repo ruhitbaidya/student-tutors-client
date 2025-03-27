@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import DateMatch from "../../../Hooks/DateMatch";
 import { useEffect, useState } from "react";
 import usePullicApi from "../../../Hooks/publicApi/usePullicApi";
@@ -7,22 +7,22 @@ import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 const Allsession = () => {
   const [loading, setLoading] = useState(false);
   const [sessions, setSessions] = useState([]);
-
+  const texts = useLocation();
   const [page, setPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const publicApicall = usePullicApi();
-
   useEffect(() => {
     setLoading(true);
+
     publicApicall
-      .get(`/getallsession/${currentPage}`)
+      .get(`/getallsession/?page=${currentPage}&text=${texts?.state?.text}`)
       .then((res) => {
         setSessions(res?.data?.result);
         setPage(Math.ceil(res?.data?.documentCount / 6));
         setLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [publicApicall, currentPage]);
+  }, [publicApicall, currentPage, texts]);
 
   const pages = Array.from({ length: page }, (_, index) => index + 1);
 
@@ -38,16 +38,23 @@ const Allsession = () => {
 
       {/* Loading State */}
       {loading ? (
-        <div className="h-[50vh] flex justify-center items-center">
-          <div className="animate-pulse flex space-x-4">
+        <div className="h-[80vh]">
+          <div className="animate-pulse space-x-4">
             <div className="flex-1 space-y-6 py-1">
-              <div className="h-4 bg-gray-300 rounded w-3/4 mx-auto"></div>
+              <div className="h-4 bg-gray-300 rounded mx-auto"></div>
               <div className="space-y-3">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="grid grid-cols-3 gap-4">
-                    <div className="h-32 bg-gray-300 rounded col-span-3"></div>
-                  </div>
-                ))}
+                <div className="grid grid-cols-4">
+                  {[...Array(6)].map((_, i) => (
+                    <>
+                      <div key={i} className="flex w-52 flex-col gap-4">
+                        <div className="skeleton h-32 w-full"></div>
+                        <div className="skeleton h-4 w-28"></div>
+                        <div className="skeleton h-4 w-full"></div>
+                        <div className="skeleton h-4 w-full"></div>
+                      </div>
+                    </>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

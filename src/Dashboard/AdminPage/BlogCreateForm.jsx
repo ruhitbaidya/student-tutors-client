@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
-
+import { ToastContainer, toast } from "react-toastify";
 const BlogCreateForm = () => {
+  const [loading, setLoading] = useState(false);
   const secureApiCall = useSecureApi();
   const [image, setImage] = useState(null);
   const [prevImage, setPrevImage] = useState(null);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("image", image);
     const res = await fetch(
@@ -28,13 +31,22 @@ const BlogCreateForm = () => {
     if (result?.data?.display_url) {
       secureApiCall
         .post(`/create-blog`, { ...data, image: result.data.display_url })
-        .then((res) => console.log(res));
+        .then((res) => {
+          if (res.data.acknowledged) {
+            reset();
+            setPrevImage("");
+            setLoading(false);
+            toast.success("Blog Create Success");
+          }
+          console.log(res);
+        });
       console.log(result);
       console.log({ ...data, image: result.data.display_url });
     }
   };
   return (
     <div>
+      <ToastContainer />
       <div>
         <img className="h-[150px] w-[100px]" src={prevImage} alt="" />
       </div>
@@ -71,7 +83,11 @@ const BlogCreateForm = () => {
         </div>
         <div>
           <button className="w-full bg-indigo-800 text-white py-[8px]">
-            Submit
+            {loading ? (
+              <span className="loading loading-spinner loading-xs"></span>
+            ) : (
+              "Submit"
+            )}
           </button>
         </div>
       </form>

@@ -33,6 +33,9 @@ import Services from "../Pages/Services/Services";
 import Contact from "../Pages/Contact/Contact";
 import Blogs from "../Pages/Blogs/Blogs";
 import CreateBlog from "../Dashboard/AdminPage/CreateBlog";
+import BlogDetails from "../Pages/Home/Blogs/BlogDetails";
+import DashboardRoot from "../Dashboard/DashboardRoot";
+import Profile from "../Dashboard/Profile";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blogs />,
+      },
+      {
+        path: "/blog/:id",
+        element: <BlogDetails />,
       },
 
       {
@@ -95,6 +102,14 @@ const router = createBrowserRouter([
       </PrivateRouter>
     ),
     children: [
+      {
+        path: "",
+        element: <DashboardRoot />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
       {
         path: "viewalluseradmin",
         element: (
