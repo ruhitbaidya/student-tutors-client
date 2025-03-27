@@ -16,8 +16,8 @@ const ViewAllMetirial = () => {
     if (window.confirm("Are you sure you want to delete this material?")) {
       secureApiCall
         .delete(`/deleteMetrial/${id}`)
+        // eslint-disable-next-line no-unused-vars
         .then((res) => {
-          console.log(res);
           refetch();
         })
         .catch((err) => console.log(err));

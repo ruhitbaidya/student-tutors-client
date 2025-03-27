@@ -6,10 +6,8 @@ const DateMatch = (regdatestart, regDateEnd) => {
   const endDate = Date.now(regDateEnd);
 
   if (currentDate <= startDate && currentDate >= endDate) {
-    console.log("ok");
     return true;
   }
-  console.log("Not Ok");
   return false;
 };
 

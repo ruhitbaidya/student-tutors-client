@@ -1,30 +1,29 @@
 import { useState } from "react";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
 import UpdateSession from "./UpdateSession";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 const StatusPageSession = ({ users, refetch }) => {
   const [handelbtn, sethandelBtn] = useState(false);
-  const [ids, setIds] = useState("")
-  const [formRject, setformReject] = useState(false)
+  const [ids, setIds] = useState("");
+  const [formRject, setformReject] = useState(false);
   const [upid, setupid] = useState("");
   const [message, setMessage] = useState("");
   const secureApiCall = useSecureApi();
   const findRooleandchange = (tex, id) => {
     setMessage("");
-    console.log(tex, id);
-    sethandelBtn(false)
-    setIds(id)
+    sethandelBtn(false);
+    setIds(id);
     if (tex === "approve") {
       document.getElementById("my_modal_1").showModal();
     } else if (tex === "rejected") {
-      setformReject(false)
+      setformReject(false);
       document.getElementById("my_modal_6").showModal();
     } else {
       secureApiCall
         .patch(`/pedndinglist/${id}`)
         .then((res) => {
           if (res.data.modifiedCount > 0) {
-            toast.success("Send Feedback")
+            toast.success("Send Feedback");
             refetch();
           }
         })
@@ -46,13 +45,13 @@ const StatusPageSession = ({ users, refetch }) => {
       .post("/rejectSessionFeedback", datas)
       .then((res) => {
         e.target.reset();
-        console.log(res);
+
         if (res.data) {
           secureApiCall
             .patch(`/rejectlist/${ids}`)
             .then((res) => {
               if (res.data.modifiedCount > 0) {
-                setformReject(true)
+                setformReject(true);
                 refetch();
               }
             })
@@ -65,17 +64,16 @@ const StatusPageSession = ({ users, refetch }) => {
   const handelSesstionPrice = (e) => {
     e.preventDefault();
     const price = e.target.pricetext.value;
-    console.log(ids, price)
+
     secureApiCall
       .patch(`/sessionstatuschange/${ids}`, { price })
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           refetch();
           setMessage("Successfully Update");
-          sethandelBtn(true)
+          sethandelBtn(true);
           e.target.reset();
         }
-        console.log(res);
       })
       .catch((err) => console.log(err));
   };
@@ -94,7 +92,7 @@ const StatusPageSession = ({ users, refetch }) => {
       })
       .catch((err) => console.log(err));
   };
-  console.log(formRject)
+
   return (
     <div>
       <div>
@@ -181,13 +179,16 @@ const StatusPageSession = ({ users, refetch }) => {
               <p className="text-[18px] font-[600] text-green-400">{message}</p>
               <form onSubmit={handelSesstionPrice}>
                 <input
-                required
+                  required
                   name="pricetext"
                   type="number"
                   placeholder="Type here"
                   className="input input-bordered w-full"
                 />
-                <button disabled={handelbtn} className="btn btn-success text-white w-full mt-[20px]">
+                <button
+                  disabled={handelbtn}
+                  className="btn btn-success text-white w-full mt-[20px]"
+                >
                   Save
                 </button>
               </form>
@@ -261,7 +262,10 @@ const StatusPageSession = ({ users, refetch }) => {
                   </label>
                 </div>
                 <div className="mt-[20px]">
-                  <button disabled={formRject}  className={` w-full py-[8px] border border-gray-400 rounded-lg`}>
+                  <button
+                    disabled={formRject}
+                    className={` w-full py-[8px] border border-gray-400 rounded-lg`}
+                  >
                     Submit
                   </button>
                 </div>

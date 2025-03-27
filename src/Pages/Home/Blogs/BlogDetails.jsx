@@ -7,7 +7,7 @@ const BlogDetails = () => {
   const ids = useLocation();
   const id = ids.pathname.split("/")[2];
   const publicApicall = usePullicApi();
-  console.log();
+
   useEffect(() => {
     publicApicall
       .get(`/get-singal-blog/${id}`)

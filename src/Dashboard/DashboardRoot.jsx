@@ -37,7 +37,6 @@ const DashboardRoot = () => {
       setNotAdmin(true);
     }
   }, [secureData, user]);
-  console.log(secureData);
 
   return (
     <div>

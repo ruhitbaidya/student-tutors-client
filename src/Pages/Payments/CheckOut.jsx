@@ -5,19 +5,21 @@ import {
 } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
+import { toast, ToastContainer } from "react-toastify";
 
 const CheckOut = () => {
   const infos = JSON.parse(localStorage.getItem("cId"));
-  const secureApiCall = useSecureApi()
+  const secureApiCall = useSecureApi();
   const [payMessage, setPaymessage] = useState("");
   const stripes = useStripe();
   const elements = useElements();
 
   if (payMessage) {
-    secureApiCall.post("/bookedSession", infos)
-    .then((res)=> console.log(res))
-    .catch((err)=> console.log(err))
-    
+    secureApiCall
+      .post("/bookedSession", infos)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
     setTimeout(() => {
       localStorage.removeItem("price");
       localStorage.removeItem("cId");
@@ -38,7 +40,7 @@ const CheckOut = () => {
     stripes.retrievePaymentIntent(clientsec).then((res) => {
       setPaymessage(res?.paymentIntent);
       if (res?.paymentIntent?.status === "succeeded") {
-        console.log("payment");
+        toast.success("payment Success");
       }
     });
   }, [stripes]);
@@ -59,13 +61,13 @@ const CheckOut = () => {
     console.log(error);
   };
 
-  console.log(payMessage?.paymentIntent?.status);
   //   id,amount,status
   //   const paymentElementOptions = {
   //     layout: "tabs"
   //   }
   return (
     <div className="w-[50%] mx-auto my-[80px]">
+      <ToastContainer />
       <form onSubmit={handelSubmit}>
         <PaymentElement />
         <button className="w-full mt-[20px] bg-green-500 text-white rounded-lg py-[12px]">

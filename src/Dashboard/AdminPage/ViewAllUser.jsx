@@ -7,16 +7,16 @@ const ViewAllUser = () => {
   const [users, setUsers] = useState([]);
   const [pageLoad, setpageLoad] = useState(false);
   const [page, setPage] = useState(0);
-  const [sentPage, setSendPage] = useState(0)
+  const [sentPage, setSendPage] = useState(0);
   const [secureData, refetch] = useQueryGetSecure(`/getAllUser/${sentPage}`);
-  console.log(secureData)
+
   const secureApiCall = useSecureApi();
   useEffect(() => {
-    setpageLoad(true)
+    setpageLoad(true);
     setUsers(secureData?.data);
-    setPage(Math.ceil(secureData?.data?.counts / 6))
-    if(secureData?.data){
-      setpageLoad(false)
+    setPage(Math.ceil(secureData?.data?.counts / 6));
+    if (secureData?.data) {
+      setpageLoad(false);
     }
   }, [secureData]);
 
@@ -26,7 +26,6 @@ const ViewAllUser = () => {
     secureApiCall
       .get(`/userSearch/${searchdata}`)
       .then((res) => {
-        console.log(res.data);
         setUsers(res.data);
       })
       .catch((err) => console.log(err));
@@ -35,7 +34,6 @@ const ViewAllUser = () => {
   //   console.log(e, email)
   // }
   const findRooleandchange = (role, email, id) => {
-    console.log(role, email, id);
     Swal.fire({
       title: "Are you sure?",
       text: `You Change ${email || "First The Role In select Box"} role`,
@@ -49,7 +47,6 @@ const ViewAllUser = () => {
         secureApiCall
           .patch(`/changeUserRole/${id}`, { role })
           .then((res) => {
-            console.log(res);
             if (res.data.modifiedCount > 0) {
               Swal.fire({
                 title: "Update!",
@@ -65,10 +62,9 @@ const ViewAllUser = () => {
       }
     });
   };
-  console.log(users, page);
-  
-  const findsPage = Array.from({length : page}, (_,index)=> index + 1)
-  console.log(findsPage)
+
+  const findsPage = Array.from({ length: page }, (_, index) => index + 1);
+
   return (
     <div>
       <div>
@@ -87,7 +83,9 @@ const ViewAllUser = () => {
             </label>
           </form>
           <div className="w-[15%]">
-          <button onClick={()=> refetch()} className="btn w-full">Reset</button>
+            <button onClick={() => refetch()} className="btn w-full">
+              Reset
+            </button>
           </div>
         </div>
         <div>
@@ -104,7 +102,9 @@ const ViewAllUser = () => {
               <tbody>
                 {users?.result?.length <= 0 && (
                   <div>
-                    <p className="text-3xl text-center mt-[30px]">Not User Found</p>
+                    <p className="text-3xl text-center mt-[30px]">
+                      Not User Found
+                    </p>
                   </div>
                 )}
                 {users &&
@@ -138,30 +138,51 @@ const ViewAllUser = () => {
                   })}
               </tbody>
             </table>
-            {
-                  pageLoad && <div>
-                    <div className="flex justify-center items-center h-[50vh]">
-                    <div>
+            {pageLoad && (
+              <div>
+                <div className="flex justify-center items-center h-[50vh]">
+                  <div>
                     <span className="loading loading-ring loading-lg block"></span>
-                    </div>
-                    </div>
                   </div>
-                }
+                </div>
+              </div>
+            )}
           </div>
 
           <div>
             {/* paginations  */}
 
-            {
-              page > 0 &&  <div className="space-x-2 text-center">
-              <button disabled={sentPage === 0 ? true : false} onClick={()=> setSendPage(sentPage - 1)} className="btn">Prev</button>
-              {findsPage?.map((item, ind)=>{
-                return <button onClick={()=> setSendPage(ind)} className={`${sentPage === ind ? "bg-gray-600 text-white" : "" } border-0 btn`} key={ind}>{item}</button>
-              })}
-              <button disabled={sentPage === page - 1 ? true : false} onClick={()=> setSendPage(sentPage + 1)} className="btn">Next</button>
-            </div>
-            }
-           
+            {page > 0 && (
+              <div className="space-x-2 text-center">
+                <button
+                  disabled={sentPage === 0 ? true : false}
+                  onClick={() => setSendPage(sentPage - 1)}
+                  className="btn"
+                >
+                  Prev
+                </button>
+                {findsPage?.map((item, ind) => {
+                  return (
+                    <button
+                      onClick={() => setSendPage(ind)}
+                      className={`${
+                        sentPage === ind ? "bg-gray-600 text-white" : ""
+                      } border-0 btn`}
+                      key={ind}
+                    >
+                      {item}
+                    </button>
+                  );
+                })}
+                <button
+                  disabled={sentPage === page - 1 ? true : false}
+                  onClick={() => setSendPage(sentPage + 1)}
+                  className="btn"
+                >
+                  Next
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

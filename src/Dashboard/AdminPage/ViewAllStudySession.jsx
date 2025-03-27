@@ -7,14 +7,15 @@ import StatusPageSession from "./StatusPageSession";
 const ViewAllStudySession = () => {
   const [sendstatus, setSendStatus] = useState("pending");
   const [session, setSession] = useState([]);
-  const [secureData, refetch] = useQueryGetSecure(`/allTutorSession/${sendstatus}`);
+  const [secureData, refetch] = useQueryGetSecure(
+    `/allTutorSession/${sendstatus}`
+  );
   useEffect(() => {
     setSession(secureData?.data);
   }, [secureData]);
   const handelsseccion = (status) => {
     setSendStatus(status);
   };
-  console.log(session);
   return (
     <div>
       <Tabs>

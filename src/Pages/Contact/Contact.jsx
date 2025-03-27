@@ -19,8 +19,8 @@ const ContactPage = () => {
     reset,
   } = useForm();
 
+  // eslint-disable-next-line no-unused-vars
   const onSubmit = (data) => {
-    console.log("Form submitted:", data);
     reset();
   };
 

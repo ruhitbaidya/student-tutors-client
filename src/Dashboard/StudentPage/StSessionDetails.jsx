@@ -14,7 +14,6 @@ const StSessionDetails = () => {
   useEffect(() => {
     setDetails(datas?.data);
   }, [datas]);
-  console.log(datas.data);
 
   const handelReview = (e) => {
     e.preventDefault();
@@ -23,7 +22,7 @@ const StSessionDetails = () => {
     const review = e.target.review.value;
     const studentEmail = user.email;
     const revies = { reviewSessionId, ratings, review, studentEmail };
-    console.log({ reviewSessionId, ratings, review, studentEmail });
+
     secureApiCall
       .post("/reviewall", revies)
       .then((res) => {
@@ -62,7 +61,9 @@ const StSessionDetails = () => {
         <div className="mt-[100px]">
           <div className="">
             <div>
-              <h2 className="text-center text-3xl font-[600]">Review This Course</h2>
+              <h2 className="text-center text-3xl font-[600]">
+                Review This Course
+              </h2>
             </div>
             <div className="vertical-rating flex justify-center items-center mb-[30px]">
               <ReactStars

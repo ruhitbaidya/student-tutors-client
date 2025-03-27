@@ -26,7 +26,6 @@ const CreateBlog = () => {
           const finisaldata = blog?.filter((item) => item?._id !== id);
           setBlog(finisaldata);
         }
-        console.log(res);
       })
       .catch((err) => console.log(err));
   };

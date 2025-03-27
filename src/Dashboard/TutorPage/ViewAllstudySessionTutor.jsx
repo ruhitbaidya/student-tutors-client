@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import useQueryGetSecure from "../../Hooks/QueryGet/useQueryGetSecure";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
@@ -13,7 +14,6 @@ const ViewAllstudySessionTutor = () => {
     secureApiCall
       .patch(`/statusChange/${id}`)
       .then((res) => {
-        console.log(res);
         secureApiCall
           .delete(`/deleteFeedback/${id}`)
           .then((res) => console.log(res))
@@ -23,7 +23,6 @@ const ViewAllstudySessionTutor = () => {
       .catch((err) => console.log(err));
   };
   const handelFedbackshow = (id) => {
-    console.log(id);
     document.getElementById("my_modal_12").showModal();
     secureApiCall
       .get(`/showfeedback/${id}`)

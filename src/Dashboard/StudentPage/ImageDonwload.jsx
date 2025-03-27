@@ -8,16 +8,16 @@ const ImageDonwload = ({ image }) => {
     toast.error("Give Valid Image URL");
     return;
   }
-  console.log(image)
+
   const handelImageDownload = async () => {
-    try{
-        const response = await fetch(image, {
-            mode: "no-cors",
-          });
-          const blob = await response.blob();
-          setImage(URL.createObjectURL(blob));
-    }catch(err){
-        console.log(err)
+    try {
+      const response = await fetch(image, {
+        mode: "no-cors",
+      });
+      const blob = await response.blob();
+      setImage(URL.createObjectURL(blob));
+    } catch (err) {
+      console.log(err);
     }
   };
   handelImageDownload();
@@ -25,7 +25,7 @@ const ImageDonwload = ({ image }) => {
     <div className="mt-[30px]">
       <ToastContainer />
       <a
-      className="cursor border border-gray-600 py-[12px] px-[30px] text-gray-900"
+        className="cursor border border-gray-600 py-[12px] px-[30px] text-gray-900"
         href={images}
         download={imagePart[4]}
       >

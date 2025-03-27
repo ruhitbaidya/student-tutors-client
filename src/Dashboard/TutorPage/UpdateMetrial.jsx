@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
@@ -5,28 +6,28 @@ import { useLoaderData } from "react-router-dom";
 
 const UpdateMetrial = () => {
   const [pageload, setPageLoad] = useState(false);
-  const {data} = useLoaderData();
+  const { data } = useLoaderData();
   const secureApiCall = useSecureApi();
-  console.log(data);
+
   const handelMeterialUpload = (e) => {
     e.preventDefault();
     setPageLoad(true);
     const title = e.target.title.value;
     const links = e.target.links.value;
     const image = e.target.image.value;
-      const dataMeterial = {
-        title: title,
-        links: links,
-        imageurl: image,
-      };
-      secureApiCall
-        .patch(`/updateMertial/${data._id}`, dataMeterial)
-        .then((res) => {
-          setPageLoad(false);
-          console.log(res);
-          toast.success("Metrial Update");
-        })
-        .catch((err) => console.log(err));
+    const dataMeterial = {
+      title: title,
+      links: links,
+      imageurl: image,
+    };
+    secureApiCall
+      .patch(`/updateMertial/${data._id}`, dataMeterial)
+      .then((res) => {
+        setPageLoad(false);
+
+        toast.success("Metrial Update");
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div>
@@ -55,7 +56,7 @@ const UpdateMetrial = () => {
                     <span className="label-text">Google Drive Link</span>
                   </div>
                   <textarea
-                  defaultValue={data.links}
+                    defaultValue={data.links}
                     placeholder="Give Here Google Driver Link"
                     className="rounded-lg p-[10px] focus:outline-gray-400"
                     name="links"
@@ -71,8 +72,7 @@ const UpdateMetrial = () => {
                     <span className="label-text">Pick a file</span>
                   </div>
                   <input
-                   defaultValue={data.imageurl}
-
+                    defaultValue={data.imageurl}
                     name="image"
                     type="text"
                     className="input input-bordered w-full"

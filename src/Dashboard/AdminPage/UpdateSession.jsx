@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import useQueryGetSecure from "../../Hooks/QueryGet/useQueryGetSecure";
 import useSecureApi from "../../Hooks/SecureApi/useSecureApi";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 const UpdateSession = ({ valueId }) => {
   const [session, setSession] = useState({});
   const [secureData] = useQueryGetSecure(`/getsession/${valueId}`);
-  console.log(secureData);
+
   const secureApiCall = useSecureApi();
   useEffect(() => {
     setSession(secureData?.data);
@@ -21,16 +21,24 @@ const UpdateSession = ({ valueId }) => {
     const classStateDate = form.classStateDate.value;
     const classEndDate = form.classEndDate.value;
     const classDuration = form.classDuration.value;
-    const datas = {sessionTitle, sessionDescription,regStartDate,regEndDate,classStateDate,classEndDate,classDuration}
-    console.log({sessionTitle, sessionDescription,regStartDate,regEndDate,classStateDate,classEndDate,classDuration});
-      secureApiCall.post(`/updateadminsession/${valueId}`, datas)
-      .then((res)=> {
-        if(res.data.modifiedCount > 0){
-            toast.success("Successfylly Update")
-            form.reset();
+    const datas = {
+      sessionTitle,
+      sessionDescription,
+      regStartDate,
+      regEndDate,
+      classStateDate,
+      classEndDate,
+      classDuration,
+    };
+    secureApiCall
+      .post(`/updateadminsession/${valueId}`, datas)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          toast.success("Successfylly Update");
+          form.reset();
         }
       })
-      .catch((err)=> console.log(err))
+      .catch((err) => console.log(err));
   };
   return (
     <div>
@@ -48,7 +56,6 @@ const UpdateSession = ({ valueId }) => {
                   </div>
                   <input
                     defaultValue={session?.sessionTitle}
-                    
                     name="sessionTitle"
                     type="text"
                     placeholder="Session Title"
@@ -64,7 +71,6 @@ const UpdateSession = ({ valueId }) => {
                   <textarea
                     defaultValue={session?.sessionDescription}
                     name="sessionDescription"
-                    
                     className=" border rounded-lg p-[15px]"
                     placeholder="Session Description"
                     id=""
@@ -80,7 +86,6 @@ const UpdateSession = ({ valueId }) => {
                   <input
                     defaultValue={session?.regStartDate}
                     name="regStartDate"
-                    
                     type="date"
                     placeholder="Session Title"
                     className="input input-bordered w-full"
@@ -94,7 +99,6 @@ const UpdateSession = ({ valueId }) => {
                   <input
                     defaultValue={session?.regEndDate}
                     name="regEndDate"
-                    
                     type="date"
                     placeholder="Session Title"
                     className="input input-bordered w-full"
@@ -109,7 +113,6 @@ const UpdateSession = ({ valueId }) => {
                   <input
                     defaultValue={session?.classStateDate}
                     name="classStateDate"
-                    
                     type="date"
                     placeholder="Session Title"
                     className="input input-bordered w-full"
@@ -123,7 +126,6 @@ const UpdateSession = ({ valueId }) => {
                   <input
                     defaultValue={session?.classEndDate}
                     name="classEndDate"
-                    
                     type="date"
                     placeholder="Session Title"
                     className="input input-bordered w-full"
@@ -138,7 +140,6 @@ const UpdateSession = ({ valueId }) => {
                   <input
                     defaultValue={session?.classDuration}
                     name="classDuration"
-                    
                     type="number"
                     placeholder="Session Title"
                     className="input input-bordered w-full"

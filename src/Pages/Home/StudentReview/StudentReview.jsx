@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -14,7 +15,6 @@ const StudentReviews = () => {
       .then((res) => setReview(res?.data))
       .catch((err) => console.log(err));
   }, [publicApicall]);
-  console.log(review);
   const reviews = [
     {
       id: 1,

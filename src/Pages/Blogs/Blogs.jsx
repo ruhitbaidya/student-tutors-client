@@ -10,7 +10,6 @@ const Blogs = () => {
     publicApicall
       .get(`/get-blog`)
       .then((res) => {
-        console.log(res.data);
         setBlogPosts(res?.data);
       })
       .catch((err) => console.log(err));

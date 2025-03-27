@@ -38,10 +38,7 @@ const BlogCreateForm = () => {
             setLoading(false);
             toast.success("Blog Create Success");
           }
-          console.log(res);
         });
-      console.log(result);
-      console.log({ ...data, image: result.data.display_url });
     }
   };
   return (
