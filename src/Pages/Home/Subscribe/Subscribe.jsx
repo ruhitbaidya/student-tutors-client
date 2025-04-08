@@ -27,10 +27,10 @@ const Subscribe = () => {
       {/* Header Section */}
       <ToastContainer />
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+        <h2 className="text-3xl dark:text-white md:text-4xl font-bold text-gray-800 mb-3">
           Stay Updated With Our Courses
         </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="text-lg dark:text-white text-gray-600 max-w-2xl mx-auto">
           Subscribe to get the latest course updates and learning resources
         </p>
         <div className="w-24 h-1 bg-indigo-600 mx-auto mt-6 rounded-full"></div>

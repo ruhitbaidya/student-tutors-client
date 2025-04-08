@@ -22,10 +22,10 @@ const SessionShow = () => {
     <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Header Section */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        <h2 className="text-3xl dark:text-white md:text-4xl font-bold text-gray-800 mb-4">
           Embracing Serenity: A Journey to Inner Peace
         </h2>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+        <p className="text-lg dark:text-white text-gray-600 max-w-3xl mx-auto">
           Join us for transformative sessions to achieve calm and tranquility
           through mindfulness, gentle meditation, and soothing techniques.
           Release stress and cultivate inner peace.

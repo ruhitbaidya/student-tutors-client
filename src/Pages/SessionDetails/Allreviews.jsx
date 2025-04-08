@@ -33,7 +33,7 @@ const Allreviews = ({ id }) => {
     <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
       {/* Reviews Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 sm:mb-0">
+        <h2 className="text-2xl dark:text-white md:text-3xl font-bold text-gray-800 mb-4 sm:mb-0">
           Student Reviews
         </h2>
         <div className="flex items-center bg-indigo-50 px-4 py-2 rounded-lg">

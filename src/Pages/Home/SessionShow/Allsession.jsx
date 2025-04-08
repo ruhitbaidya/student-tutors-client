@@ -9,11 +9,11 @@ const Allsession = () => {
   const [sessions, setSessions] = useState([]);
   const texts = useLocation();
   const [page, setPage] = useState(0);
+  const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const publicApicall = usePullicApi();
   useEffect(() => {
     setLoading(true);
-
     publicApicall
       .get(`/getallsession/?page=${currentPage}&text=${texts?.state?.text}`)
       .then((res) => {
@@ -25,17 +25,39 @@ const Allsession = () => {
   }, [publicApicall, currentPage, texts]);
 
   const pages = Array.from({ length: page }, (_, index) => index + 1);
-
+  const handelSearch = () => {
+    console.log(search);
+  };
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Header Section */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        <h2 className="text-3xl dark:text-white md:text-4xl font-bold text-gray-800 mb-4">
           Explore All Sessions
         </h2>
         <div className="w-24 h-1 bg-indigo-600 mx-auto rounded-full"></div>
       </div>
 
+      <div>
+        <div className="conatiner mx-auto px-[30px] mb-[30px]">
+          <div className="w-[60%] mx-auto">
+            <div className="relative">
+              <input
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full p-[15px] focus:outline-none border rounded-lg"
+                type="text"
+                placeholder="Search Cource"
+              />
+              <button
+                onClick={handelSearch}
+                className="bg-indigo-600 rounded-lg right-3 text-white px-[35px] py-[10px] absolute top-[5px]"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       {/* Loading State */}
       {loading ? (
         <div className="h-[80vh]">

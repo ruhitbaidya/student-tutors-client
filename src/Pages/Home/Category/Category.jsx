@@ -45,10 +45,10 @@ const Category = () => {
     <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Header Section */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+        <h2 className="text-3xl dark:text-white md:text-4xl font-bold text-gray-800 mb-3">
           Course Categories
         </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="text-lg dark:text-white text-gray-600 max-w-2xl mx-auto">
           Choose your category and discover expert-led courses
         </p>
         <div className="w-24 h-1 bg-indigo-600 mx-auto mt-6 rounded-full"></div>
